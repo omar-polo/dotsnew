@@ -7,7 +7,16 @@
 		pre = 1
 		print "```"
 	}
+	emptylines()
 	print substr($0, 2)
+	next
+}
+
+/^$/ {
+	if (pre)
+		empty++
+	else
+		print $0
 	next
 }
 
@@ -16,7 +25,14 @@
 		pre = 0
 		print "```"
 	}
+	emptylines()
 	print $0
 }
 
 END { if (pre) print "```" }
+
+function emptylines() {
+	for (i = 0; i < empty; i++)
+		print ""
+	empty = 0
+}
