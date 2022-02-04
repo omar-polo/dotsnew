@@ -7,9 +7,26 @@ pair()
 {
 	files="$files $2"
 	dotfiles="\${HOME}/$1 $dotfiles"
+	xxxfiles="${2%.lp} $xxxfiles"
 	cat <<EOF >> Makefile.local
 \${HOME}/$1: $2
 	./lpp \$? > \$@
+
+EOF
+}
+
+conv()
+{
+	gemfiles="gem/$1.gmi $gemfiles"
+	wwwfiles="www/$1.html $wwwfiles"
+	cat <<EOF >> Makefile.local
+gem/$1.gmi: $2
+	sed 's/EXT/gmi'/ $2 | ./unpar | ./gc > \$@
+
+www/$1.html: gem/$1.gmi header.html footer.html
+	sed 's!TITLE!$1!' header.html > \$@
+	sed 's/EXT/html/' $2 | ./unpar | ./gc | ./gem2html >> \$@
+	cat footer.html >> \$@
 
 EOF
 }
@@ -19,25 +36,14 @@ rm -f Makefile.local
 pair .profile	profile.lp
 pair .kshrc	kshrc.lp
 
+conv index	index.lp
 for file in $files; do
-	f="${file%.lp}"
-	gemfiles="gem/$f.gmi $gemfiles"
-	wwwfiles="www/$f.html $wwwfiles"
-
-	cat <<EOF >> Makefile.local
-gem/$f.gmi: $file
-	./unpar $file | ./gc > \$@
-
-www/$f.html: gem/$f.gmi header.html footer.html
-	sed 's!TITLE!$f!' header.html > \$@
-	./gem2html gem/$f.gmi >> \$@
-	cat footer.html >> \$@
-
-EOF
+	conv "${file%.lp}" "$file"
 done
 
 cat <<EOF >> Makefile.local
+DOTFILES =	$dotfiles
 GEMFILES =	$gemfiles
 WWWFILES =	$wwwfiles
-DOTFILES =	$dotfiles
+XXXFILES =	$(printf "%s\n" $xxxfiles | sort | xargs echo)
 EOF

@@ -13,6 +13,11 @@ all:
 
 include Makefile.local
 
+index.lp: README.md
+	cp $? $@
+	printf "\n\n### Files\n" >> $@
+	for f in ${XXXFILES}; do printf "=> %s.EXT\n" "$$f"; done >> $@
+
 install: ${DOTFILES}
 
 www: style.css
@@ -35,4 +40,4 @@ upload:
 	rsync --delete -a www/ op:sites/dots.omarpolo.com
 
 clean:
-	rm -rf gem www
+	rm -rf gem www index.lsp
