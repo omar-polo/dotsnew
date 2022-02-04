@@ -1,6 +1,7 @@
 #!/usr/bin/awk -f
 #
 # gc - gemini-fy code
+# public domain
 
 /^\t/ {
 	if (!pre) {

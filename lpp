@@ -1,6 +1,7 @@
 #!/usr/bin/awk -f
 #
 # lpp - literate programming processor
+# public domain
 
 /^\t/ {
 	if (!pre) {

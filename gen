@@ -1,7 +1,8 @@
 #!/bin/sh
 #
 # stuff we should do in the makefile
-# but can't for portability reasons
+# but can't for portability reasons.
+# public domain
 
 pair()
 {

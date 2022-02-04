@@ -1,6 +1,7 @@
 #!/usr/bin/awk -f
 #
 # unpar - un-paragraphize text
+# public domain
 
 /^=>/ {
 	if (line != "") {
