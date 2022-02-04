@@ -13,8 +13,8 @@ all:
 
 include Makefile.local
 
-index.lp: README.md
-	cp $? $@
+index.lp: README.md ${XXXFILES:=.lp}
+	cp README.md $@
 	printf "\n\n### Files\n\n" >> $@
 	for f in ${XXXFILES}; do printf "=> %s.EXT\n" "$$f"; done >> $@
 
