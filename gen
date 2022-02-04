@@ -41,6 +41,7 @@ pair .profile		profile.lp
 pair .kshrc		kshrc.lp
 pair lib/profile	rc.lp
 pair .sqliterc		sqliterc.lp
+pair .psqlrc		psqlrc.lp
 
 conv index		index.lp
 for file in $files; do
