@@ -16,7 +16,7 @@ include Makefile.local
 index.lp: README.md ${XXXFILES:=.lp}
 	cp README.md $@
 	printf "\n\n### Files\n\n" >> $@
-	for f in ${XXXFILES}; do printf "=> %s.EXT\n" "$$f"; done >> $@
+	for f in ${XXXFILES}; do printf "=> %s.EXT %s\n" "$$f" "$$f"; done>> $@
 
 install: ${DOTFILES}
 
