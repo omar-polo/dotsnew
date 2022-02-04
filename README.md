@@ -9,7 +9,8 @@ learning it properly, so here we are.  I guess I could cite Ken Thompson
 > I can't understand something presented to me that's very complex.
 
 but it wouldn't be completely true.  I understand and use complex stuff,
-but some I just don't want to put the effort in.
+but for some I just don't want to put the effort in.  org-mode falls
+into this category.
 
 This is me reinventing a lightweight literate-programming style (mostly
 in AWK) and use it to manage my dotfiles, as well as for exporting them
