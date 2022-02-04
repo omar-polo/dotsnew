@@ -7,10 +7,13 @@
 pair()
 {
 	files="$files $2"
-	dotfiles="\${HOME}/$1 $dotfiles"
+	dotfiles="$HOME/$1 $dotfiles"
 	xxxfiles="${2%.lp} $xxxfiles"
+
+	dname=$(dirname "$HOME/$1")
 	cat <<EOF >> Makefile.local
-\${HOME}/$1: $2
+$HOME/$1: $2
+	[ ! -d "$dname" ] && mkdir -p "$dname" || true
 	./lpp \$? > \$@
 
 EOF
