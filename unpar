@@ -2,6 +2,16 @@
 #
 # unpar - un-paragraphize text
 
+/^=>/ {
+	if (line != "") {
+		item = 0
+		print line
+		line = ""
+	}
+	print $0
+	next
+}
+
 /^\* / {
 	item = 1
 	if (line != "")
