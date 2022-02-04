@@ -1,0 +1,43 @@
+#!/bin/sh
+#
+# stuff we should do in the makefile
+# but can't for portability reasons
+
+pair()
+{
+	files="$files $2"
+	dotfiles="\${HOME}/$1 $dotfiles"
+	cat <<EOF >> Makefile.local
+\${HOME}/$1: $2
+	./lpp \$? > \$@
+
+EOF
+}
+
+rm -f Makefile.local
+
+pair .profile	profile.lp
+pair .kshrc	kshrc.lp
+
+for file in $files; do
+	f="${file%.lp}"
+	gemfiles="gem/$f.gmi $gemfiles"
+	wwwfiles="www/$f.html $wwwfiles"
+
+	cat <<EOF >> Makefile.local
+gem/$f.gmi: $file
+	./unpar $file | ./gc > \$@
+
+www/$f.html: gem/$f.gmi header.html footer.html
+	sed 's!TITLE!$f!' header.html > \$@
+	./gem2html gem/$f.gmi >> \$@
+	cat footer.html >> \$@
+
+EOF
+done
+
+cat <<EOF >> Makefile.local
+GEMFILES =	$gemfiles
+WWWFILES =	$wwwfiles
+DOTFILES =	$dotfiles
+EOF

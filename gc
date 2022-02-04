@@ -1,0 +1,22 @@
+#!/usr/bin/awk -f
+#
+# gc - gemini-fy code
+
+/^\t/ {
+	if (!pre) {
+		pre = 1
+		print "```"
+	}
+	print substr($0, 2)
+	next
+}
+
+// {
+	if (pre) {
+		pre = 0
+		print "```"
+	}
+	print $0
+}
+
+END { if (pre) print "```" }

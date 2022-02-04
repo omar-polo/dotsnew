@@ -1,0 +1,18 @@
+#!/usr/bin/awk -f
+#
+# lpp - literate programming processor
+
+/^\t/ {
+	if (!pre) {
+		pre = 1
+		if (did)
+			print ""
+		else
+			did = 1
+	}
+
+	print substr($0, 2)
+	next
+}
+
+// { pre = 0 }

@@ -1,0 +1,46 @@
+#!/usr/bin/awk -f
+#
+# unpar - un-paragraphize text
+
+/^\* / {
+	item = 1
+	if (line != "")
+		print line
+	line = $0
+	next
+}
+
+item && /^ +/ {
+	s = gensub(" +", "", "1", $0)
+	line = sprintf("%s %s", line, s)
+	next
+}
+
+// { item = 0 }
+
+/^$/ {
+	if (line != "")
+		print line
+	line = ""
+	print ""
+}
+
+/^[[:blank:]]+/ {
+	if (line != "")
+		print line
+	line = ""
+	print $0
+	next
+}
+
+// {
+	if (line != "")
+		line = sprintf("%s %s", line, $0)
+	else
+		line = $0
+}
+
+END {
+	if (line)
+		print line
+}
