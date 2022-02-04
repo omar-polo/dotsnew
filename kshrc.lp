@@ -160,6 +160,15 @@ previous command:
 		history 0 | grep "$1"
 	}
 
+clbin (the site) is a web pastebin that's easy to use from the command
+line with curl.  clbin (the function) is an easy way to share something,
+just pipe it to clbin and it returns an url.
+
+	clbin()
+	{
+		curl -F 'clbin=<-' https://clbin.com
+	}
+
 Some aliases I use when working with the OpenBSD port tree:
 
 	alias m="make"
