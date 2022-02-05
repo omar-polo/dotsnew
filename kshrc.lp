@@ -175,7 +175,7 @@ Some aliases I use when working with the OpenBSD port tree:
 	alias mup="make update-patches"
 	alias mupl="make update-plist"
 	alias build="MAKE_JOBS=5 time make 2>&1 | tee build"
-	alias pclear='make clean="package plist"'
+	alias pclean='make clean="package plist"'
 
 find(1) is an invaluable tool and I use it all the time.  walk is an
 attempt to build a wrapper around some common usages of find that is a
