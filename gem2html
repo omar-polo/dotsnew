@@ -46,8 +46,7 @@ while (<>) {
 			say "</ul>";
 			say "<ul class='link-list'>";
 		}
-		my $href = $1;
-		say "<li><a href='$href'>". san($2 || $1) ."</a></li>";
+		say "<li><a href='$1'>". san($2 || $1) ."</a></li>";
 	} elsif (m/^###\s*(.*)$/) {
 		output("h3", $1);
 	} elsif (m/^##\s*(.*)$/) {
