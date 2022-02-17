@@ -174,6 +174,7 @@ Some aliases I use when working with the OpenBSD port tree:
 	alias m="make"
 	alias mup="make update-patches"
 	alias mupl="make update-plist"
+	alias mpldc="make port-lib-depends-check"
 	alias build="MAKE_JOBS=5 time make 2>&1 | tee build"
 	alias pclean='make clean="package plist"'
 
