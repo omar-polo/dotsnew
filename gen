@@ -27,11 +27,14 @@ conv()
 {
 	gemfiles="gem/$1.gmi $gemfiles"
 	wwwfiles="www/$1.html $wwwfiles"
+	dname=$(dirname "$1")
 	cat <<EOF >> Makefile.local
 gem/$1.gmi: $2
+	[ ! -d "gem/$dname" ] && mkdir -p "gem/$dname" || true
 	sed 's/EXT/gmi'/ $2 | ./unpar | ./gc > \$@
 
 www/$1.html: gem/$1.gmi header.html footer.html
+	[ ! -d "www/$dname" ] && mkdir -p "www/$dname" || true
 	sed 's!TITLE!$1!' header.html > \$@
 	sed 's/EXT/html/' $2 | ./unpar | ./gc | ./gem2html >> \$@
 	cat footer.html >> \$@
