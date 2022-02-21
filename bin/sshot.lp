@@ -5,6 +5,11 @@ sshot is a simple script to make a screenshot!
 	#!/bin/sh
 	
 	select=
+
+Did you know that getopts is a built-in?  The first version of this
+script used getopt, but it was ugly and required some shell features
+which I'm not sure are POSIX.  getopts is easier to handle:
+
 	while getopts s name; do
 		case $name in
 		s)	select=1 ;;
