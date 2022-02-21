@@ -49,8 +49,10 @@ pair .kshrc		kshrc.lp
 pair lib/profile	rc.lp
 pair .sqliterc		sqliterc.lp
 pair .psqlrc		psqlrc.lp
+
 pair bin/acmerc		bin/acmerc.lp	+x
 pair bin/browser	bin/browser.lp	+x
+pair bin/sshot		bin/sshot.lp	+x
 
 conv index		index.lp
 for file in $files; do
