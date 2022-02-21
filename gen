@@ -15,8 +15,12 @@ pair()
 $HOME/$1: $2
 	[ ! -d "$dname" ] && mkdir -p "$dname" || true
 	./lpp \$? > \$@
-
 EOF
+
+	if [ -n "$3" ]; then
+		printf '\tchmod %s $@\n' "$3" >> Makefile.local
+	fi
+	echo >> Makefile.local
 }
 
 conv()
@@ -42,6 +46,8 @@ pair .kshrc		kshrc.lp
 pair lib/profile	rc.lp
 pair .sqliterc		sqliterc.lp
 pair .psqlrc		psqlrc.lp
+pair bin/acmerc		bin/acmerc.lp	+x
+pair bin/browser	bin/browser.lp	+x
 
 conv index		index.lp
 for file in $files; do
