@@ -49,6 +49,7 @@ pair .kshrc		kshrc.lp
 pair lib/profile	rc.lp
 pair .sqliterc		sqliterc.lp
 pair .psqlrc		psqlrc.lp
+pair .cwmrc		cwmrc.lp
 
 pair bin/acmerc		bin/acmerc.lp	+x
 pair bin/browser	bin/browser.lp	+x
