@@ -54,7 +54,7 @@ wait a bit for acme to set up its things and start autoacme
 		sleep 1
 		winid=1
 		exec acmeeval 'autoacme '$home'/bin/acmeconfig'
-	}
+	} &
 	acmeevalpid=$apid
 
 Then wait for acme to terminate
