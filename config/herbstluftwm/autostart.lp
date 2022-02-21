@@ -29,9 +29,17 @@ manger, with only few exceptions
 	hc keybind $Mod-Control-Return spawn emacsclient -c
 	hc keybind Control-Mod1-Return spawn xterm
 
+control amused (my music player)
+
 	hc keybind XF86AudioPrev spawn amused prev
 	hc keybind XF86AudioNext spawn amused next
 	hc keybind XF86AudioPlay spawn amused toggle
+
+I don't have a dedicated key for screenshot, but Scroll_Lock is not too
+awkward to press
+
+	hc keybind $Mod-Scroll_Lock spawn sshot -c
+	hc keybind $Mod-Shift-Scroll_Lock spawn sshot -cs
 
 basic movement in tiling and floating mode focusing clients
 
