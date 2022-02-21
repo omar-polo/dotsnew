@@ -54,6 +54,8 @@ pair bin/acmerc		bin/acmerc.lp	+x
 pair bin/browser	bin/browser.lp	+x
 pair bin/sshot		bin/sshot.lp	+x
 
+pair .config/herbstluftwm/autostart	config/herbstluftwm/autostart.lp
+
 conv index		index.lp
 for file in $files; do
 	conv "${file%.lp}" "$file"
