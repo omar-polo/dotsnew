@@ -86,25 +86,25 @@ resizing frames and floating clients
 
 add the tags
 
-	hc rename default "0" || true
+	hc rename default "1" || true
 	addtag() {
 		hc add $1
 		if [ ! -z "$2" ]; then
-			hc keybind "$Mod-$2" use_index $1
-			hc keybind "$Mod-Shift-$2" move_index $1
+			hc keybind "$Mod-$2" use $1
+			hc keybind "$Mod-Shift-$2" move $1
 		fi
 	}
 
-	addtag 0 ampersand
-	addtag 1 braceleft
-	addtag 2 bracketleft
-	addtag 3 parenleft
-	addtag 4 equal
-	addtag 5 plus
-	addtag 6 parenright
-	addtag 7 bracketright
-	addtag 8 braceright
-	addtag 9 exclam
+	addtag 1 ampersand
+	addtag 2 braceleft
+	addtag 3 bracketleft
+	addtag 4 parenleft
+	addtag 5 equal
+	addtag 6 plus
+	addtag 7 parenright
+	addtag 8 bracketright
+	addtag 9 braceright
+	addtag 0 exclam
 
 cycle through tags
 
@@ -135,7 +135,7 @@ layout is skipped.
 mouse bindings
 
 	hc mouseunbind --all
-	hc mousebind $Mod-Button1 move 
+	hc mousebind $Mod-Button1 move
 	hc mousebind $Mod-Button2 zoom
 	hc mousebind $Mod-Button3 resize
 
@@ -222,10 +222,10 @@ incredibly easy
 	herbstclient set_monitors $((1920-100))x$((1080-100))+50+50
 	# hc detect_monitors
 
-Finally launche the panel on each screen
+Finally launche the panel on each screen.  I rewrote the original
+script for the monitor in a mix of rc (the plan9 shell) and awk.
 
-	panel=~/.config/herbstluftwm/panel.sh
-	[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+	cd ~/.config/herbstluftwm
 	for monitor in $(hc list_monitors | cut -d: -f1) ; do
-		"$panel" "$monitor" &
+		./panel "$monitor" &
 	done

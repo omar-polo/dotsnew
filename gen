@@ -56,6 +56,10 @@ pair bin/browser	bin/browser.lp	+x
 pair bin/sshot		bin/sshot.lp	+x
 
 pair .config/herbstluftwm/autostart	config/herbstluftwm/autostart.lp
+pair .config/herbstluftwm/panel		config/herbstluftwm/panel.lp	+x
+pair .config/herbstluftwm/process.awk	config/herbstluftwm/process.awk.lp
+pair .config/herbstluftwm/lib		config/herbstluftwm/lib.lp
+pair .config/herbstluftwm/event-gen	config/herbstluftwm/event-gen.lp
 
 conv index		index.lp
 for file in $files; do
