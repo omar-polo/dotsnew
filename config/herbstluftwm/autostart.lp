@@ -121,6 +121,10 @@ manage the layout
 	hc keybind $Mod-Control-m jumpto last-minimized
 	hc keybind $Mod-p pseudotile toggle
 
+I prefer for the default layout to be `max' (only one window visible)
+
+	hc set default_frame_layout max
+
 The following cycles through the available layouts within a frame, but
 skips layouts, if the layout change wouldn't affect the actual window
 positions.  I.e. if there are two windows within a frame, the grid
