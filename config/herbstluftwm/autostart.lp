@@ -32,9 +32,10 @@ manger, with only few exceptions
 
 control amused (my music player)
 
-	hc keybind XF86AudioPrev spawn amused prev
 	hc keybind XF86AudioNext spawn amused next
 	hc keybind XF86AudioPlay spawn amused toggle
+	hc keybind XF86AudioPrev spawn amused prev
+	hc keybind XF86AudioStop spawn amused stop
 
 I don't have a dedicated key for screenshot, but Scroll_Lock is not too
 awkward to press
