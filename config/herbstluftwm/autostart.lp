@@ -216,6 +216,18 @@ rules
 
 	hc set tree_style '╾│ ├└╼─┐'
 
+A cool thing about herbstluftwm is that I can "dump" the layout and
+later reload it:
+
+	load_layout() {
+		if [ -f "$2" ]; then
+			hc load $1 "$(cat $2)"
+		fi
+	}
+
+	load_layout 2 ~/herbst.ws.2
+	load_layout 3 ~/herbst.ws.3
+
 unlock, just to be sure
 
 	hc unlock
