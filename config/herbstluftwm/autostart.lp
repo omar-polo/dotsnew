@@ -22,6 +22,7 @@ manger, with only few exceptions
 	#Mod=Mod1   # Use alt as the main modifier
 	Mod=Mod4    # Use the super key as the main modifier
 
+	hc keybind $Mod-Tab use_previous
 	hc keybind $Mod-Shift-q quit
 	hc keybind $Mod-Shift-r reload
 	hc keybind $Mod-Shift-c close
