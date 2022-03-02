@@ -93,8 +93,8 @@ control the playback
 I don't have a dedicated key for screenshot on this machine, but
 Scroll_Lock is not too awkward to press
 
-	bind-key 4-Scroll_Lock	sshot
-	bind-key 4S-Scroll_Lock	"sshot -s"
+	bind-key 4-Scroll_Lock	"sshot -c"
+	bind-key 4S-Scroll_Lock	"sshot -cs"
 
 manage the notifications
 
