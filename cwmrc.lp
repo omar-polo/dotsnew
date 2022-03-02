@@ -19,7 +19,7 @@ First I have a list of applications for the built-in menu:
 	command term		xterm
 	command xterm.jp	xterm.jp
 
-I found this color by random I guess, but they're fine
+I found these color by random I guess, but they're fine
 
 	color activeborder "#0abeff"
 	color inactiveborder "#777"
