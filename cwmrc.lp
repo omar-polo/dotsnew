@@ -89,6 +89,7 @@ control the playback
 	bind-key XF86AudioPrev "amused prev"
 	bind-key XF86AudioNext "amused next"
 	bind-key XF86AudioPlay "amused toggle"
+	bind-key XF86AudioStop "amused stop"
 
 I don't have a dedicated key for screenshot on this machine, but
 Scroll_Lock is not too awkward to press
