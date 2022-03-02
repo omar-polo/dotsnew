@@ -178,6 +178,14 @@ Some aliases I use when working with the OpenBSD port tree:
 	alias build="MAKE_JOBS=5 time make 2>&1 | tee build"
 	alias pclean='make clean="package plist"'
 
+And even more aliases:
+
+	alias mopnew="mdirs ~/Maildir/op | grep -v emacs | mlist -st | mthread -r | mseq -S"
+
+	for c in com rep fwd bnc; do
+		alias o$c="m$c -from 'Omar Polo <op@openbsd.org>'"
+	done
+
 find(1) is an invaluable tool and I use it all the time.  walk is an
 attempt to build a wrapper around some common usages of find that is a
 little bit less verbose to use.  The name is stolen from 9front, but the
