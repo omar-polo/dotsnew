@@ -24,7 +24,7 @@ is /tmp/ns.$USER.$DISPLAY by default.  I'd like to have different
 namespaces per acme session, so I'm defining the env variable.
 
 Yes, using $pid ($$ in bourne shell) is discouraged to generate "random"
-values, but here it's done on puropese: every program spawned inside
+values, but here it's done on purpose: every program spawned inside
 *this* terminal will share the same namespace.
 
 	NAMESPACE=/tmp/ns.$user.$pid
