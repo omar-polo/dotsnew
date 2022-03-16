@@ -4,6 +4,18 @@
 # but can't for portability reasons.
 # public domain
 
+copy()
+{
+	dotfiles="$HOME/$1 $dotfiles"
+
+	dname=$(dirname "$HOME/$1")
+	cat <<EOF >> Makefile.local
+$HOME/$1: $2
+	[ ! -d "$dname" ] && mkdir -p "$dname" || true
+	cp \$? \$@
+EOF
+}
+
 pair()
 {
 	files="$files $2"
@@ -60,6 +72,11 @@ pair .config/herbstluftwm/panel		config/herbstluftwm/panel.lp	+x
 pair .config/herbstluftwm/process.awk	config/herbstluftwm/process.awk.lp
 pair .config/herbstluftwm/lib		config/herbstluftwm/lib.lp
 pair .config/herbstluftwm/event-gen	config/herbstluftwm/event-gen.lp
+
+pair .emacs.d/early-init.el	emacs/early-init.el.lp
+copy .emacs.d/init.el		emacs/init.el
+copy .emacs.d/minimal-theme.el	emacs/minimal-theme.el
+copy .emacs.d/simple-pass.el	emacs/simple-pass.el
 
 conv index		index.lp
 for file in $files; do
