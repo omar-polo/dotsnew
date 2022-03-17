@@ -57,6 +57,13 @@
 (add-hook 'prog-mode-hook #'whitespace-mode)
 (add-hook 'text-mode-hook #'whitespace-mode)
 
+(dolist (hook '(emacs-lisp-mode-hook
+		clojure-mode-hook
+		clojurescript-mode-hook
+		clojurec-mode-hook
+		scss-mode-hook))
+  (add-hook hook #'op/disable-tabs))
+
 (with-eval-after-load 'log-edit
   (add-hook 'log-edit-mode #'auto-fill-mode))
 
@@ -223,12 +230,17 @@
 ;; packages that i want to be installed
 (dolist (pkg '(vc-got pdf-tools eglot nameless sly cider go-mode web-mode
                       lua-mode markdown-mode elfeed form-feed shackle
-                      embark mct marginalia))
+                      embark mct marginalia puni))
   (unless (package-installed-p pkg)
     (message "Installing %s" pkg)
     (package-install pkg)))
 
 (global-form-feed-mode +1)
+
+(add-hook 'text-mode-hook #'puni-mode)
+(add-hook 'prog-mode-hook #'puni-mode)
+(define-key puni-mode-map (kbd "C-)") #'puni-slurp-forward)
+(define-key puni-mode-map (kbd "C-(") #'puni-barf-forward)
 
 (setq completion-styles '(basic substring initials flex partial-completion))
 
@@ -245,6 +257,9 @@
                                 file
                                 buffer
                                 kill-ring))
+
+(with-eval-after-load 'go-mode
+  (add-hook 'go-mode-hook #'subword-mode))
 
 (with-eval-after-load 'eglot
   (define-key eglot-mode-map (kbd "<f1>") #'eglot-code-actions)
