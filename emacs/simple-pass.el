@@ -46,7 +46,8 @@
                  collect (buffer-substring-no-properties
                           ;; skip ./
                           (+ 2 (line-beginning-position))
-                          (line-end-position))
+                          ;; skip .gpg
+                          (- (line-end-position) 4))
                  do (forward-line +1))))))
 
 (defun simple-pass--copy-cr ()
@@ -55,8 +56,12 @@
 
 ;;;###autoload
 (defun simple-pass-copy (pass)
+  "Copy the password for PASS in the `kill-ring'."
   (interactive (list (simple-pass--copy-cr)))
-  (shell-command (concat simple-pass-cmd " show -c " pass)))
+  (with-temp-buffer
+    (when (zerop (process-file simple-pass-cmd nil nil nil
+                               "show" "-c" pass))
+      (message "copied password for %s" pass))))
 
 (provide 'simple-pass)
 ;;; simple-pass.el ends here
