@@ -291,6 +291,10 @@
 (with-eval-after-load 'css-mode
   (add-hook 'css-mode-hook #'op/disable-tabs))
 
+(with-eval-after-load 'flymake
+  (define-key prog-mode-map (kbd "C-c ! n") #'flymake-goto-next-error)
+  (define-key prog-mode-map (kbd "C-c ! p") #'flymake-goto-prev-error))
+
 (with-eval-after-load 'cc-mode
   (setq c-basic-offset 8
         c-default-style "K&R")
