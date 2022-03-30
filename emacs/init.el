@@ -23,6 +23,12 @@
 ;; mg-like
 (define-key minibuffer-mode-map (kbd "C-w") #'backward-kill-word)
 
+(defun op/reverse-other-window ()
+  "Like `other-window', but reverse."
+  (interactive "")
+  (other-window -1))
+(define-key global-map (kbd "C-x O") #'op/reverse-other-window)
+
 (setq uniquify-buffer-name-style 'forward
       uniquify-strip-common-suffix t)
 
@@ -229,8 +235,8 @@
 
 ;; packages that i want to be installed
 (dolist (pkg '(vc-got pdf-tools eglot nameless sly cider go-mode web-mode
-                      lua-mode markdown-mode elfeed form-feed shackle
-                      embark mct marginalia puni))
+                      lua-mode markdown-mode yaml-mode gemini-mode elfeed
+                      form-feed shackle embark mct marginalia puni))
   (unless (package-installed-p pkg)
     (message "Installing %s" pkg)
     (package-install pkg)))
@@ -287,13 +293,15 @@
 
 (with-eval-after-load 'cc-mode
   (setq c-basic-offset 8
-        c-default-style "K&R"
-        c-file-offsets '((arglist-intro . +)
-                         (arglist-cont-nonempty . *)))
+        c-default-style "K&R")
   (dolist (hook '(c-mode-hook c++-mode-hook))
     (add-hook hook #'abbrev-mode)
     (add-hook hook #'subword-mode))
-
+  (defun op/c-indent ()
+    (interactive)
+    (c-set-offset 'arglist-intro '+)
+    (c-set-offset 'arglist-cont-nonempty '*))
+  (add-hook 'c-mode-hook #'op/c-indent)
   ;; TODO: improve it!
   (defun op/c-add-include (path &optional localp)
     "Include PATH at the start of the file.
