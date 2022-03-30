@@ -23,7 +23,7 @@ The usage is simple, it just accepts a -c flag to copy the image in the
 clipboard and a -s flag to select a window instead of grabbing the whole
 screen.
 
-The image is saved in /tmp/YYYYMMDDHHMMSS.png
+The image is saved as /tmp/YYYYMMDDHHMMSS.png
 
 	file=/tmp/`date +%Y%m%d%H%M%S`.png
 
