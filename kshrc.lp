@@ -70,6 +70,7 @@ and for got(1)
 		tag			\
 		add			\
 		remove rm		\
+		patch pa		\
 		revert rv		\
 		commit ci		\
 		send se			\
