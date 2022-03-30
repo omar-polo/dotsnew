@@ -36,8 +36,8 @@ serve-www: publish
 	python3 -m http.server --directory www 8888
 
 upload:
-	rsync --delete -a gem/ op:gemini/dots.omarpolo.com
-	rsync --delete -a www/ op:sites/dots.omarpolo.com
+	openrsync --rsync-path=openrsync --del -a gem/ antartica:/var/gemini/dots.omarpolo.com
+	openrsync --rsync-path=openrsync --del -a www/ antartica:/var/www/dots.omarpolo.com
 
 clean:
 	rm -rf gem www index.lsp
