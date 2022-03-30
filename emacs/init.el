@@ -275,8 +275,8 @@
   (add-to-list 'eglot-server-programs
                '(c-mode . ("clangd" "--header-insertion=never"))))
 
+(add-hook 'emacs-lisp-mode #'nameless-mode)
 (with-eval-after-load 'nameless
-  (add-hook 'emacs-lisp-mode #'nameless-mode)
   (setq nameless-private-prefix t
         nameless-affect-indentation-and-filling nil)
   (define-key emacs-lisp-mode-map (kbd "_") #'nameless-insert-name-or-self-insert))
