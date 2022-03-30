@@ -176,7 +176,8 @@ Some aliases I use when working with the OpenBSD port tree:
 	alias mup="make update-patches"
 	alias mupl="make update-plist"
 	alias mpldc="make port-lib-depends-check"
-	alias build="MAKE_JOBS=5 time make 2>&1 | tee build"
+	alias pbuild="env MAKE_JOBS=5 time make"
+	alias build="pbuild 2>&1 | tee build"
 	alias pclean='make clean="package plist"'
 
 And even more aliases:
@@ -187,6 +188,51 @@ And even more aliases:
 		alias m$c="VISUAL='mg -f auto-fill-mode' m$c"
 		alias o$c="m$c -from 'Omar Polo <op@openbsd.org>'"
 	done
+
+And finally some aliases for mq
+
+	alias pnq="NQDIR=/tmp/ports/ nq "
+	alias pfq="NQDIR=/tmp/ports/ fq "
+
+Stuff to use my own purritobin instance
+
+	: ${P_SERVER=paste.omarpolo.com}
+	: ${P_PORT=42069}
+	: ${P_TIME=week}
+	: ${P_MAXTIME=30}
+
+shell client to upload a plaintext message
+
+	purr() {
+		curl --silent --max-time "${P_MAXTIME}" \
+			--data-binary "@${1:-/dev/stdin}" \
+			"${P_SERVER}:${P_PORT}/${P_TIME}"
+	}
+
+shell client to upload an encrypted message
+
+	meow() {
+		key="$(openssl rand -hex 32)"
+		iv="$(openssl rand -hex 16)"
+		url="$(openssl enc -aes-256-cbc -K ${key} -iv ${iv} -e -base64 -A < ${1:-/dev/stdin} | purr)"
+		printf "%s\n" "${url%\/*}/paste.html#${url##*\/}_${key}_${iv}"
+		unset key iv url
+	}
+
+...and to decrypt it
+
+	meowd() {
+		url="$1"
+		baseurl="${url%\/*}"
+		vals="${url##*\#}"
+		paste=$(printf '%s\n' "${vals}" | cut -d_ -f1)
+		key=$(printf '%s\n' "${vals}" | cut -d _ -f2)
+		iv=$(printf '%s\n' "${vals}" | cut -d _ -f3)
+		curl --max-time "${P_MAXTIME}" --write-out "\n" --silent \
+			"${baseurl}/${paste}" | openssl enc -aes-256-cbc \
+			-base64 -d -K ${key} -iv ${iv}
+		unset url baseurl vals paste key iv
+	}
 
 find(1) is an invaluable tool and I use it all the time.  walk is an
 attempt to build a wrapper around some common usages of find that is a
