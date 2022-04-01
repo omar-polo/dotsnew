@@ -125,6 +125,15 @@
                  (window-parameters . ((no-delete-other-windows . t)))))
           (delete-window)))
 
+(defun op/visit-new-migration-file (name)
+  "Visit a new SQL migration file named after NAME."
+  (interactive "Mname: ")
+  (let* ((name (replace-regexp-in-string " " "-" (string-trim name)))
+         (f (format "%s-%s.sql"
+                    (format-time-string "%Y%m%d%H%M")
+                    name)))
+    (find-file f)))
+
 (defun op/fill-or-unfill (fn &optional justify region)
   "Meant to be an adviced :around `fill-paragraph'.
       FN is the original `fill-column'.  If `last-command' is
@@ -253,6 +262,11 @@
 (marginalia-mode +1)
 (mct-minibuffer-mode +1)
 (mct-region-mode +1)
+
+;; override the binding for the annoying mct-backward-updir.
+(define-key mct-minibuffer-local-filename-completion-map
+            (kbd "DEL") #'backward-delete-char)
+
 (setq mct-remove-shadowed-file-names t
       mct-completions-format 'one-column
       mct-completion-passlist '(Info-goto-node
