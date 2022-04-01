@@ -295,12 +295,19 @@
         nameless-affect-indentation-and-filling nil)
   (define-key emacs-lisp-mode-map (kbd "_") #'nameless-insert-name-or-self-insert))
 
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (with-eval-after-load 'web-mode
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
         web-mode-style-padding 0
         web-mode-enable-engine-detection t)
-  (add-hook 'web-mode-hook #'op/disable-tabs))
+  (add-hook 'web-mode-hook #'op/disable-tabs)
+
+  ;; fix .dir-locals.el
+  (defun op/web-mode-fix-dir-locals ()
+    (when (derived-mode-p major-mode 'web-mode)
+      (web-mode-guess-engine-and-content-type)))
+  (add-hook 'hack-local-variables-hook #'op/web-mode-fix-dir-locals))
 
 (with-eval-after-load 'css-mode
   (add-hook 'css-mode-hook #'op/disable-tabs))
