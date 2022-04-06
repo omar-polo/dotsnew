@@ -15,7 +15,8 @@
       load-prefer-newer t
       tab-bar-show 1
       enable-recursive-minibuffers t
-      imenu-auto-rescan 1)
+      imenu-auto-rescan 1
+      use-short-answers t)
 
 (setq completion-ignore-case t
       read-file-name-completion-ignore-case t
