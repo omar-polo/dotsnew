@@ -1,3 +1,7 @@
+;; get rid of custom from my init file
+(setq custom-file "~/.emacs.d/emacs-custom.el")
+(load custom-file)
+
 (defconst op/backup-dir
   (expand-file-name "backups" user-emacs-directory))
 (unless (file-exists-p op/backup-dir)
@@ -19,6 +23,10 @@
 
 (define-key global-map (kbd "C-x C-b") #'ibuffer)
 (define-key global-map (kbd "M-g i") #'imenu)
+
+(defun op/imenu ()
+  "Just like `imenu', but always flattened!"
+  (interactive ))
 
 ;; mg-like
 (define-key minibuffer-mode-map (kbd "C-w") #'backward-kill-word)
@@ -86,6 +94,10 @@
 (let ((font "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1"))
   (set-frame-font font nil t)
   (add-to-list 'default-frame-alist `(font . ,font)))
+
+;; fix the emojis too
+(set-fontset-font t 'emoji '("Noto Emoji" . "iso10646-1")
+                  nil 'prepend)
 
 ;; some cool stuff
 (save-place-mode +1)
@@ -245,7 +257,7 @@
 ;; packages that i want to be installed
 (dolist (pkg '(vc-got pdf-tools eglot nameless sly cider go-mode web-mode
                       lua-mode markdown-mode yaml-mode gemini-mode elfeed
-                      form-feed shackle embark mct marginalia puni))
+                      form-feed shackle embark consult mct marginalia puni))
   (unless (package-installed-p pkg)
     (message "Installing %s" pkg)
     (package-install pkg)))
@@ -258,6 +270,25 @@
 (define-key puni-mode-map (kbd "C-(") #'puni-barf-forward)
 
 (setq completion-styles '(basic substring initials flex partial-completion))
+
+(require 'consult) ;; some stuff lacks an autoload and i don't want to debug it
+
+(cl-loop for (key . func) in '(("C-x :" . consult-complex-command)
+                               ("C-x b" . consult-buffer)
+                               ("C-x 4 b" . consult-buffer-other-window)
+                               ("C-x 5 b" . consult-buffer-other-frame)
+                               ("C-x r b" . consult-bookmark)
+                               ("C-x p b" . consult-project-buffer)
+                               ("M-y" . consult-yank-pop)
+                               ("M-g g" . consult-goto-line)
+                               ("M-g M-g" . consult-goto-line)
+                               ("M-g m" . consult-mark)
+                               ("M-g i" . consult-imenu)
+                               ("M-s l" . consult-line)
+                               ("M-s L" . consult-line-multi)
+                               ("M-s m" . consult-multi-occur))
+         do (define-key global-map (kbd key) func))
+(add-hook 'completion-list-mode-hook #'consult-preview-at-point-mode)
 
 (marginalia-mode +1)
 (mct-minibuffer-mode +1)
@@ -276,7 +307,8 @@
                                 imenu
                                 file
                                 buffer
-                                kill-ring))
+                                kill-ring
+                                consult-buffer))
 
 (with-eval-after-load 'go-mode
   (add-hook 'go-mode-hook #'subword-mode))
