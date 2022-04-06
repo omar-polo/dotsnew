@@ -18,7 +18,8 @@
       imenu-auto-rescan 1
       use-short-answers t
       next-error-message-highlight t
-      read-minibuffer-restore-windows nil)
+      read-minibuffer-restore-windows nil
+      isearch-allow-motion t)
 
 (setq completion-ignore-case t
       read-file-name-completion-ignore-case t
