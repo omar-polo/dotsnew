@@ -16,7 +16,9 @@
       tab-bar-show 1
       enable-recursive-minibuffers t
       imenu-auto-rescan 1
-      use-short-answers t)
+      use-short-answers t
+      next-error-message-highlight t
+      read-minibuffer-restore-windows nil)
 
 (setq completion-ignore-case t
       read-file-name-completion-ignore-case t
