@@ -238,7 +238,9 @@
   (require 'dired-x)
   (setq dired-listing-switches "-lahF"
         dired-dwim-target t
-        dired-deletion-confirmer #'y-or-n-p))
+        dired-deletion-confirmer #'y-or-n-p
+        dired-do-revert-buffer t
+        dired-kill-when-opening-new-dired-buffer t))
 
 ;; just like telescope!
 (with-eval-after-load 'diff-mode
