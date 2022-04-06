@@ -257,7 +257,7 @@
 ;; packages that i want to be installed
 (dolist (pkg '(vc-got pdf-tools eglot nameless sly cider go-mode web-mode
                       lua-mode markdown-mode yaml-mode gemini-mode elfeed
-                      form-feed shackle embark consult mct marginalia puni))
+                      form-feed shackle embark consult mct puni))
   (unless (package-installed-p pkg)
     (message "Installing %s" pkg)
     (package-install pkg)))
@@ -290,7 +290,7 @@
          do (define-key global-map (kbd key) func))
 (add-hook 'completion-list-mode-hook #'consult-preview-at-point-mode)
 
-(marginalia-mode +1)
+(setq completions-detailed t)
 (mct-minibuffer-mode +1)
 (mct-region-mode +1)
 
