@@ -19,7 +19,8 @@
       use-short-answers t
       next-error-message-highlight t
       read-minibuffer-restore-windows nil
-      isearch-allow-motion t)
+      isearch-allow-motion t
+      calc-make-windows-dedicated t)
 
 (setq completion-ignore-case t
       read-file-name-completion-ignore-case t
@@ -405,6 +406,8 @@
         sh-indent-after-continuation nil))
 
 
+
+(setq eshell-hist-ignoredups t)
 
 (defun op/eshell-bufname (dir)
   (concat "*eshell " (expand-file-name dir) "*"))
