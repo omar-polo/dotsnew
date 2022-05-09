@@ -66,6 +66,7 @@ pair .cwmrc		cwmrc.lp
 pair bin/acmerc		bin/acmerc.lp	+x
 pair bin/amused-monitor	bin/amused-monitor.lp +x
 pair bin/browser	bin/browser.lp	+x
+pair bin/clip		bin/clip.lp	+x
 pair bin/sshot		bin/sshot.lp	+x
 
 pair .config/herbstluftwm/autostart	config/herbstluftwm/autostart.lp
