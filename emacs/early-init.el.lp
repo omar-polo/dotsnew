@@ -19,8 +19,8 @@ Another thing I do here is to load the theme.  I've developed my own
 theme (minimal-light, a fork of the original), but I'm playing with
 modus now
 
-	;; (load-theme 'minimal-light t) ; disabled for now
-	(load-theme 'modus-operandi)
+	(load-theme 'minimal t)
+	;; (load-theme 'modus-operandi)
 
 Also, $CDPATH works strange in eshell so disable it:
 
