@@ -43,7 +43,7 @@ This is just a trick to read without echoing back the characters.
 			case q
 				run=0
 			case *
-				echo unknown keybinding '>'$t'<'
+				printf ' unknown keybinding >'$t'<\r'
 			}
 		}
 	}
