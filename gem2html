@@ -81,9 +81,7 @@ sub output {
 		say "</ul>";
 	}
 
-	if ($tn eq "p" && $content eq "") {
-		return;
-	}
+	return if $tn eq "p" && $content eq "";
 
 	say "<$tn>". san($content) ."</$tn>";
 }
