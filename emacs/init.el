@@ -20,7 +20,8 @@
       next-error-message-highlight t
       read-minibuffer-restore-windows nil
       isearch-allow-motion t
-      calc-make-windows-dedicated t)
+      calc-make-windows-dedicated t
+      user-mail-address "op@omarpolo.com")
 
 (setq completion-ignore-case t
       read-file-name-completion-ignore-case t
@@ -240,8 +241,7 @@
   (setq dired-listing-switches "-lahF"
         dired-dwim-target t
         dired-deletion-confirmer #'y-or-n-p
-        dired-do-revert-buffer t
-        dired-kill-when-opening-new-dired-buffer t))
+        dired-do-revert-buffer t))
 
 ;; just like telescope!
 (with-eval-after-load 'diff-mode
@@ -439,18 +439,16 @@ buffer."
   (defun op/eshell-after-cd (&rest _)
     (rename-buffer (op/eshell-bufname default-directory) t))
 
-  (advice-add #'eshell/cd :after #'op/eshell-after-cd)
+  (advice-add #'eshell/cd :after #'op/eshell-after-cd))
 
+(with-eval-after-load 'esh-mode
   (defun op/clear-eshell ()
     (interactive "")
     (let ((inhibit-read-only t))
       (erase-buffer)
       (eshell-send-input)))
 
-  (defun op/eshell-hook ()
-    "Because eshell is stupid."
-    (define-key eshell-mode-map (kbd "C-x M-o") #'op/clear-eshell))
-  (add-hook 'eshell-mode-hook #'op/eshell-hook))
+  (define-key eshell-command-map (kbd "M-o") #'op/clear-eshell))
 
 
 ;; sndio.el
@@ -537,11 +535,14 @@ buffer."
           "https://github.com/okbob/pspg/releases.atom"
           "https://github.com/taisei-project/taisei/releases.atom"
           "https://github.com/recp/cglm/releases.atom"
+          "https://git.sr.ht/~rjarry/aerc/refs/rss.xml"
 
           "https://causal.agency/list/pounce.atom"
 
           "https://www.crimsonmagic.me/feed/"
-          "https://fullybookedtls.wordpress.com/feed/")))
+          "https://fullybookedtls.wordpress.com/feed/"
+
+          "https://draculadaily.substack.com/feed")))
 
 (setq shackle-default-rule nil
       shackle-rules
