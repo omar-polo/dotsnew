@@ -27,7 +27,7 @@
 ;; colors.  Based on monochrome theme.
 
 ;;; Code:
-(deftheme minimal-light "minimal light theme.")
+(deftheme minimal "minimal light theme.")
 
 (let* ((class '((class color) (min-colors 89)))
        (foreground "#586e75")
@@ -51,7 +51,7 @@
        (failure "red")
        (org-background "grey94"))
   (custom-theme-set-faces
-   'minimal-light
+   'minimal
 
    ;; basic stuff
    `(default ((,class (:background ,background :foreground ,foreground))))
@@ -226,5 +226,5 @@
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
 
-(provide-theme 'minimal-light)
-;;; minimal-light-theme.el ends here
+(provide-theme 'minimal)
+;;; minimal-theme.el ends here
