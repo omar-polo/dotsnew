@@ -66,7 +66,7 @@ The uiloop function is the driver for the ui process: it listens to
 interesting events and redraws the ui when they happen
 
 	fn uiloop {
-		amused monitor | egrep --line-buffered 'next|prev|pause' | {
+		amused monitor next,prev,jump | {
 			while (read) {
 				ui
 			}
