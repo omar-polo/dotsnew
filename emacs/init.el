@@ -539,6 +539,7 @@ buffer."
           "https://github.com/okbob/pspg/releases.atom"
           "https://github.com/taisei-project/taisei/releases.atom"
           "https://github.com/recp/cglm/releases.atom"
+          "https://github.com/SCons/scons/releases.atom"
           "https://git.sr.ht/~rjarry/aerc/refs/rss.xml"
 
           "https://causal.agency/list/pounce.atom"
