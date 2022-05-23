@@ -62,7 +62,7 @@ pair lib/profile	rc.lp
 pair .sqliterc		sqliterc.lp
 pair .psqlrc		psqlrc.lp
 pair .cwmrc		cwmrc.lp
-pair mg			mg.lp
+pair .mg		mg.lp
 
 pair bin/acmerc		bin/acmerc.lp	+x
 pair bin/amused-monitor	bin/amused-monitor.lp +x
