@@ -180,6 +180,21 @@ Some aliases I use when working with the OpenBSD port tree:
 	alias build="pbuild 2>&1 | tee build"
 	alias pclean='make clean="package plist"'
 
+This one is pretty sophisticated, I've stolen it from jca@
+
+	# check shared libs version
+	cshlib() {
+		local cnt=0
+		local f
+
+		for f in $(make show=SHARED_LIBS); do
+			[ "$((cnt++ % 2))" -eq 1 ] && continue
+			echo '===>' $f
+			/usr/src/lib/check_sym /usr/local/lib/lib$f.so* \
+				$(make show=WRKINST)/usr/local/lib/lib$f.so*
+		done
+	}
+
 And even more aliases:
 
 	alias mopnew="mdirs ~/Maildir/op | grep -v emacs | mlist -st | mthread -r | mseq -S"
