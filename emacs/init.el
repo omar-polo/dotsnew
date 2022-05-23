@@ -2,6 +2,10 @@
 (setq custom-file "~/.emacs.d/emacs-custom.el")
 (load custom-file)
 
+(setq-default abbrev-mode t)
+(setq abbrev-file-name
+      (expand-file-name "~/dotsnew/emacs/abbrev_defs"))
+
 (defconst op/backup-dir
   (expand-file-name "backups" user-emacs-directory))
 (unless (file-exists-p op/backup-dir)
