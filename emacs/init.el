@@ -211,14 +211,14 @@
 
 (defun op/narrow-or-widen-dwim (p)
   "Widen if the buffer is narrowed, narrow-dwim otherwise.
-      Dwim means: region, org-src-block, org-subtree or defun,
-      whichever applies first.  Narrowing to org-src-blocks actually
-      calls `org-edit-src-code'.
+Dwim means: region, org-src-block, org-subtree or defun,
+whichever applies first.  Narrowing to org-src-blocks actually
+calls `org-edit-src-code'.
 
-      With prefix P, don't widen, just narrow even if buffer is already
-      narrowed.  With P being -, narrow to page instead of to defun.
+With prefix P, don't widen, just narrow even if buffer is already
+narrowed.  With P being -, narrow to page instead of to defun.
 
-      Taken from endless parentheses."
+Taken from endless parentheses."
   (interactive "P")
   (declare (interactive-only))
   (cond ((and (buffer-narrowed-p) (not p)) (widen))
