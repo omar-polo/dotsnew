@@ -321,6 +321,9 @@ Taken from endless parentheses."
                                 kill-ring
                                 consult-buffer))
 
+(with-eval-after-load 'cider
+  (define-key cider-repl-mode-map (kbd "C-c M-o") #'cider-repl-clear-buffer))
+
 (with-eval-after-load 'go-mode
   (add-hook 'go-mode-hook #'subword-mode))
 
