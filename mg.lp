@@ -21,7 +21,7 @@ files.  This moves them in ~/.mg.d in case I need them.
 	define-key compile "p" previous-line
 	define-key compile "q" delete-window
 
-Mg doesn't have many (any?) keybinding defined in compile-mode.  This
+Mg doesn't have many (any?) keybindings defined in compile-mode.  This
 turns it into something that resambles Emacs a bit more and it's
 handier.
 
