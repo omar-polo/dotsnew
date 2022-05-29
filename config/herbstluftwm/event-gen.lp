@@ -44,7 +44,7 @@ Date event generator:
 
 Music player event generator:
 
-	amused monitor | egrep --line-buffered '(play|next|prev)' &
+	amused monitor play,next,prev,jump &
 	playerpid=$apid
 
 Window manager event generator:
