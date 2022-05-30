@@ -47,6 +47,8 @@
   (other-window -1))
 (define-key global-map (kbd "C-x O") #'op/reverse-other-window)
 
+(define-key global-map (kbd "C-x v f") #'vc-pull)
+
 (setq uniquify-buffer-name-style 'forward
       uniquify-strip-common-suffix t)
 
