@@ -320,6 +320,7 @@ Taken from endless parentheses."
                                 imenu
                                 file
                                 buffer
+                                consult-project-buffer
                                 kill-ring
                                 consult-buffer))
 
