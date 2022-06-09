@@ -249,6 +249,16 @@ shell client to upload an encrypted message
 		unset url baseurl vals paste key iv
 	}
 
+a little awk oneliner to show the stats of a unified diff
+
+	diffstat() {
+		awk '
+		/^\+/ { a++; next }
+		/^\-/ { m++; next }
+		END   { printf("additions:\t%d\nremoval:\t%d\n", a, m) }
+		'
+	}
+
 find(1) is an invaluable tool and I use it all the time.  walk is an
 attempt to build a wrapper around some common usages of find that is a
 little bit less verbose to use.  The name is stolen from 9front, but the
