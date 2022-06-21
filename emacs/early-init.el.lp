@@ -20,7 +20,16 @@ theme (minimal-light, a fork of the original), but I'm playing with
 modus now
 
 	(load-theme 'minimal t)
-	;; (load-theme 'modus-operandi)
+
+and just a reminder for myself, these are some wip settings for modus
+vivendi in case I want to play with it again in the future:
+
+
+	;; (setq modus-themes-mode-line '(accented borderless))
+	;; (setq modus-themes-region '(accented bg-only))
+	;; (setq modus-themes-completions '((matches . (underline light))
+	;;                                  (selection . (underline light))
+	;;                                  (popup . (accented))))
 
 Also, $CDPATH works strange in eshell so disable it:
 
