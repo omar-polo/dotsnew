@@ -562,10 +562,7 @@ buffer."
             (vcs   "\\*\\(Flymake\\|Package-Lint\\|vc-\\(git\\|got\\) :\\).*")
             (elfeed "\\*elfeed-entry\\*")
             (vmd    "\\*vmd console .*"))
-        `((compilation-mode :noselect t
-                            :align above
-                            :size 0.2)
-          ("*Async Shell Command*" :ignore t)
+        `(("*Async Shell Command*" :ignore t)
           (,repls :regexp t
                   :align below
                   :size 0.3)
@@ -592,6 +589,8 @@ buffer."
                 :select t
                 :size 0.3))))
 (shackle-mode +1)
+
+;; (setq display-buffer-alist nil)
 
 (define-key global-map (kbd "M-g e") #'embark-act)
 
