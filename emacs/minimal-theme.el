@@ -86,6 +86,16 @@
    `(lazy-highlight
      ((,class (:foreground ,foreground :background ,region))))
 
+   ;; diff-mode
+   `(diff-removed ((,class (:inherit nil
+                                     :foreground "#98005D"))))
+   `(diff-indicator-removed ((t (:inherit diff-removed))))
+   `(diff-added ((,class (:inherit nil
+                                   :foreground "#009DDC"))))
+   `(diff-indicator-added ((t (:inherit diff-added))))
+   `(diff-header ((,class (:inherit nil))))
+   `(diff-file-header ((,class (:inherit nil))))
+
    ;; flymake-error
    `(flymake-error ((,class :underline (:style line :color "Red1"))))
 
