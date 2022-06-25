@@ -31,6 +31,11 @@
       read-file-name-completion-ignore-case t
       read-buffer-completion-ignore-case t)
 
+;; "diff refinement", i.e. highlighting the changes in a more granular
+;; way, is quite awful to have it enabled by default.  sometimes is
+;; useful, but for me it's more of a visual noise most of the times.
+(setq diff-refine nil)
+
 (define-key global-map (kbd "C-x C-b") #'ibuffer)
 (define-key global-map (kbd "M-g i") #'imenu)
 
