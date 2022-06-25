@@ -594,30 +594,31 @@ buffer."
 
 (define-key global-map (kbd "M-g e") #'embark-act)
 
-(defun op/target-filename+line ()
-  "Target a file with optional line number: file[:number]."
-  (save-excursion
-    (let* ((beg (progn (skip-chars-backward "^[:space:]\n")
-                       (point)))
-           (end (progn (skip-chars-forward "^[:space:]\n")
-                       (point)))
-           (str (buffer-substring-no-properties beg end)))
-      (save-match-data
-        (when (and (progn (goto-char beg)
-                          (ffap-file-at-point))
-                   (string-match ".+\\(:[[:digit:]]+\\)?:?" str))
-          `(file ,str ,beg . ,end))))))
+(with-eval-after-load 'embark
+  (defun op/target-filename+line ()
+    "Target a file with optional line number: file[:number]."
+    (save-excursion
+      (let* ((beg (progn (skip-chars-backward "^[:space:]\n")
+                         (point)))
+             (end (progn (skip-chars-forward "^[:space:]\n")
+                         (point)))
+             (str (buffer-substring-no-properties beg end)))
+        (save-match-data
+          (when (and (progn (goto-char beg)
+                            (ffap-file-at-point))
+                     (string-match ".+\\(:[[:digit:]]+\\)?:?" str))
+            `(file ,str ,beg . ,end))))))
 
-(add-to-list 'embark-target-finders #'op/target-filename+line)
+  (add-to-list 'embark-target-finders #'op/target-filename+line)
 
-(defun op/acme-find-file (filename)
-  "Visit FILENAME like `find-file', but also jump to line if provided."
-  (save-match-data
-    (if (not (string-match "\\(.+\\):\\([[:digit:]]+\\)" filename))
-        (find-file filename)
-      (let ((path (match-string 1 filename))
-            (line (string-to-number (match-string 2 filename))))
-        (with-current-buffer (find-file path)
-          (goto-line line))))))
+  (defun op/acme-find-file (filename)
+    "Visit FILENAME like `find-file', but also jump to line if provided."
+    (save-match-data
+      (if (not (string-match "\\(.+\\):\\([[:digit:]]+\\)" filename))
+          (find-file filename)
+        (let ((path (match-string 1 filename))
+              (line (string-to-number (match-string 2 filename))))
+          (with-current-buffer (find-file path)
+            (goto-line line))))))
 
-(define-key embark-file-map (kbd "RET") #'op/acme-find-file)
+  (define-key embark-file-map (kbd "RET") #'op/acme-find-file))
