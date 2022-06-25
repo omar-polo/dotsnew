@@ -36,6 +36,9 @@
 ;; useful, but for me it's more of a visual noise most of the times.
 (setq diff-refine nil)
 
+;; disable also the syntax highlighting in the diff buffers
+(setq diff-font-lock-syntax nil)
+
 (define-key global-map (kbd "C-x C-b") #'ibuffer)
 (define-key global-map (kbd "M-g i") #'imenu)
 
