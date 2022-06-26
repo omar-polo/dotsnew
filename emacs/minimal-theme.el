@@ -88,13 +88,15 @@
 
    ;; diff-mode
    `(diff-removed ((,class (:inherit nil
-                                     :foreground "#98005D"))))
+                                     :background "#FFC9EA"
+                                     :foreground ,foreground))))
    `(diff-indicator-removed ((t (:inherit diff-removed))))
    `(diff-added ((,class (:inherit nil
-                                   :foreground "#009DDC"))))
+                                   :background "#C4EFFF"
+                                   :foreground ,foreground))))
    `(diff-indicator-added ((t (:inherit diff-added))))
-   `(diff-header ((,class (:inherit nil))))
-   `(diff-file-header ((,class (:inherit nil))))
+   `(diff-header ((,class (:inherit nil :background "#dddddd"))))
+   `(diff-file-header ((,class (:inherit diff-header))))
 
    ;; flymake-error
    `(flymake-error ((,class :underline (:style line :color "Red1"))))
