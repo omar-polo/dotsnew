@@ -91,6 +91,13 @@ control the playback
 	bind-key XF86AudioPlay "amused toggle"
 	bind-key XF86AudioStop "amused stop"
 
+"gamemode" swiches the keyboard from my custom dvp-eu to an us querty
+and vice-versa, and the mouse buttons too.  it's useful when playing
+some games, hence the name, or when in need to share the keyboard with
+someone else.
+
+	bind-key 4-F5 "gamemode"
+
 I don't have a dedicated key for screenshot on this machine, but
 Scroll_Lock is not too awkward to press
 
