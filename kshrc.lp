@@ -53,37 +53,8 @@ and for ifconfig(8)
 
 and for got(1)
 
-	set -A complete_got_1 --	\
-		init			\
-		import im		\
-		clone cl		\
-		fetch fe		\
-		checkout co		\
-		update up		\
-		status st		\
-		log			\
-		diff di			\
-		blame bl		\
-		tree tr			\
-		ref			\
-		branch br		\
-		tag			\
-		add			\
-		remove rm		\
-		patch pa		\
-		revert rv		\
-		commit ci		\
-		send se			\
-		cherrypick cy		\
-		backout bo		\
-		rebase rb		\
-		histedit he		\
-		integrate ig		\
-		merge mg		\
-		stage sg		\
-		unstage ug		\
-		cat			\
-		info
+	command -v got >/dev/null && \
+		set -A complete_got_1 -- $(got -h 2>&1 | sed -n s/commands://p)
 
 Tweak the output of ls
 
