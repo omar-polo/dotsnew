@@ -112,6 +112,18 @@ and see how it goes:
 	export TOG_COLOR_DATE=default
 	export TOG_COLOR_REFS_REMOTES=red
 
+some other tweaks for tog
+
+	export TOG_DIFF_ALGORITHM=patience
+	export TOG_VIEW_SPLIT_MODE=h
+
+mblaze uses quoted-printable if there are lines longer than 78 character
+or so.  if $MBLAZE_RELAXED_MIME is specified tho, it will only do so if
+it founds lines longer than 998 characters, allowing me to send diffs
+without mangling!
+
+	export MBLAZE_RELAXED_MIME=1
+
 On OpenBSD, automake and autoconf requires these variables to be up to
 work.  Otherwise one can run automake-X.Y and autoconf-X.Y, but that's
 ugly:
