@@ -171,7 +171,12 @@ And even more aliases:
 	alias mopnew="mdirs ~/Maildir/op | grep -v emacs | mlist -st | mthread -r | mseq -S; mscan"
 
 	for c in com rep fwd bnc; do
-		alias m$c="VISUAL='mg -f auto-fill-mode' m$c"
+		local _mvisual='mg -f auto-fill-mode'
+		if [ -n "$DISPLAY" ]; then
+			_mvisual='emacsclient -c'
+		fi
+
+		alias m$c="VISUAL='$_mvisual' m$c"
 		alias o$c="m$c -from 'Omar Polo <op@openbsd.org>'"
 	done
 
