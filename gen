@@ -70,6 +70,7 @@ pair bin/browser	bin/browser.lp	+x
 pair bin/clip		bin/clip.lp	+x
 pair bin/gamemode	bin/gamemode.lp	+x
 pair bin/gmi2txt	bin/gmi2txt.lp	+x
+pair bin/mquote		bin/mquote.lp	+x
 pair bin/sshot		bin/sshot.lp	+x
 
 pair .config/herbstluftwm/autostart	config/herbstluftwm/autostart.lp
