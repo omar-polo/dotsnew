@@ -60,6 +60,10 @@ Tweak the output of ls
 
 	alias ls='ls -F'
 
+Provide an easiest access to amused
+
+	alias a=amused
+
 reset(1) doesn't work as expected inside tmux: the old output can still
 be consulted when scrolling.  If I, lazy as I am, bother to type "reset"
 I want to be sure that the history was cleared!
