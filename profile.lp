@@ -128,7 +128,7 @@ On OpenBSD, automake and autoconf requires these variables to be up to
 work.  Otherwise one can run automake-X.Y and autoconf-X.Y, but that's
 ugly:
 
-	export AUTOCONF_VERSION=2.69
+	export AUTOCONF_VERSION=2.71
 	export AUTOMAKE_VERSION=1.16
 
 Finally, load the specific profile for this machine if it exists:
