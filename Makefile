@@ -1,5 +1,7 @@
 # sed -n 's/^	//p' $? > $@
 
+RSYNC =	openrsync --rsync-path=openrsync
+
 .PHONY: all install publish
 
 all:
@@ -36,8 +38,8 @@ serve-www: publish
 	python3 -m http.server --directory www 8888
 
 upload:
-	openrsync --rsync-path=openrsync --del -a gem/ antartica:/var/gemini/dots.omarpolo.com
-	openrsync --rsync-path=openrsync --del -a www/ antartica:/var/www/dots.omarpolo.com
+	${RSYNC} --del -a gem/ antartica:/var/gemini/dots.omarpolo.com
+	${RSYNC} --del -a www/ antartica:/var/www/dots.omarpolo.com
 
 clean:
 	rm -rf gem www index.lsp
