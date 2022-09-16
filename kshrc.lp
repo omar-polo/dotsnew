@@ -40,7 +40,7 @@ and for kill(1) and pkill(1)
 
 and for vmd(8) if available
 
-	if pgrep -fq /usr/sbin/vmd; then
+	if test -f /usr/sbin/vmd && pgrep -fq /usr/sbin/vmd; then
 		set -A complete_vmctl_1 -- console load reload start stop \
 			reset status send receive
 		set -A complete_vmctl -- \
@@ -49,7 +49,8 @@ and for vmd(8) if available
 
 and for ifconfig(8)
 
-	set -A complete_ifconfig_1 -- $(ifconfig | grep ^[a-z] | cut -d: -f1)
+	command -v ifconfig >/dev/null && \
+		set -A complete_ifconfig_1 -- $(ifconfig | grep ^[a-z] | cut -d: -f1)
 
 and for got(1)
 
@@ -90,13 +91,20 @@ desktop.
 The BSDs have this incredibly useful signal available, it's a shame not
 to use it!
 
-	stty status ^T
+	case "$(uname)" in
+		*BSD) stty status ^T ;;
+	esac
 
 I really like my prompt to be as minimal as possible.  For some time
 I've used a single colon `;' as prompt, it's really nice!  At the moment
-thought I'm usign a more plan9-esque percent sign:
+thought I'm usign a more plan9-esque percent sign, with an optional
+hostname:
 
-	PS1='% '
+	if [ "$(hostname)" = venera ]; then
+		PS1='% '
+	else
+		PS1='\h% '
+	fi
 
 I got tired of trying to remember the set of flags for nc to walk to
 Gemini servers, so here we are:
