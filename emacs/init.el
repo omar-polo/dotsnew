@@ -372,7 +372,9 @@ Taken from endless parentheses."
   (defun op/web-mode-fix-dir-locals ()
     (when (derived-mode-p major-mode 'web-mode)
       (web-mode-guess-engine-and-content-type)))
-  (add-hook 'hack-local-variables-hook #'op/web-mode-fix-dir-locals))
+  (add-hook 'hack-local-variables-hook #'op/web-mode-fix-dir-locals)
+
+  (setq web-mode-enable-auto-pairing nil))
 
 (with-eval-after-load 'css-mode
   (add-hook 'css-mode-hook #'op/disable-tabs))
