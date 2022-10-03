@@ -31,6 +31,10 @@
       read-file-name-completion-ignore-case t
       read-buffer-completion-ignore-case t)
 
+;; I don't like how compile uses `make -k' by default, I want to stop
+;; on errors / warnings.
+(setq compile-command "make")
+
 ;; "diff refinement", i.e. highlighting the changes in a more granular
 ;; way, is quite awful to have it enabled by default.  sometimes is
 ;; useful, but for me it's more of a visual noise most of the times.
