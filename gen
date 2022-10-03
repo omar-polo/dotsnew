@@ -68,6 +68,7 @@ pair bin/acmerc		bin/acmerc.lp	+x
 pair bin/amused-monitor	bin/amused-monitor.lp +x
 pair bin/browser	bin/browser.lp	+x
 pair bin/clip		bin/clip.lp	+x
+pair bin/diffstat	bin/diffstat.lp	+x
 pair bin/gamemode	bin/gamemode.lp	+x
 pair bin/gmi2txt	bin/gmi2txt.lp	+x
 pair bin/mquote		bin/mquote.lp	+x
