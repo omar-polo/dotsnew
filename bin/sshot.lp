@@ -15,7 +15,7 @@ which I'm not sure are POSIX.  getopts is easier to handle:
 		case $name in
 		c)	clip=1 ;;
 		s)	select=1 ;;
-		?)	echo "Usage: $0 [-s]" >&2; exit 1 ;;
+		?)	echo "Usage: $0 [-cs]" >&2; exit 1 ;;
 		esac
 	done
 
