@@ -546,6 +546,7 @@ buffer."
           "https://owarisubs.lacumpa.biz/feed/"
           "https://asenshi.moe/feed/"
           "https://godotengine.org/rss.xml"
+          "https://gemini.it.abiscuola.com/gemlog/rss"
 
           "https://adventofcomputing.libsyn.com/rss"
 
