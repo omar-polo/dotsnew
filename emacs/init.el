@@ -131,6 +131,10 @@
       savehist-save-minibuffer-history t)
 (electric-pair-mode +1)
 
+(when (boundp #'electric-quote-mode)
+  (electric-quote-mode +1)
+  (setq electric-quote-comment nil))
+
 (define-key global-map (kbd "M-/") #'hippie-expand)
 (setq hippie-expand-try-functions-list
       '(try-expand-dabbrev
