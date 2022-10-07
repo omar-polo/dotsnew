@@ -38,12 +38,6 @@ I also prefer to "snap" windows close to the edges
 
 	snapdist 5
 
-with cwm I usually use tint2 as bar, either at the top or at the bottom.
-cwm doesn't account the space for it automatically like other window
-manager, we have to do that manually
-
-	gap 0 30 0 0
-
 I don't want to give focus to some applications via alt-tab
 
 	ignore sshmenu
@@ -140,7 +134,6 @@ basics window movements
 	bind-key C4-c window-close
 
 	bind-key 4-slash menu
-	bind-key 4-at jgmenu_run
 
 	bind-key CM-Return xterm # kitty
 	bind-key C4-Return "emacsclient -c"
