@@ -237,6 +237,22 @@ shell client to upload an encrypted message
 		unset url baseurl vals paste key iv
 	}
 
+lf is also nice.  It's possible to use it to cd too!
+
+	lfcd() {
+		local dir
+		local tmp="$(mktemp)"
+		lf -last-dir-path="$tmp" "$@"
+		if dir="$(cat -- "$tmp")"; then
+			rm -f -- "$tmp"
+			cd "$dir"
+		fi
+	}
+
+For extra-comfyness bind it to C-o
+
+	bind -m '^O=^U lfcd^M^Y'
+
 find(1) is an invaluable tool and I use it all the time.  walk is an
 attempt to build a wrapper around some common usages of find that is a
 little bit less verbose to use.  The name is stolen from 9front, but the
