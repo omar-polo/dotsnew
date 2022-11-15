@@ -98,6 +98,7 @@ terminal, so I tend to disable them:
 	export NO_COLOR='yes, please'
 	export CMAKE_COLOR_MAKEFILE=OFF
 	export WG_COLOR_MODE=never
+	export AV_LOG_FORCE_NOCOLOR='fuck yes'
 
 ...as an exception I'm trying to enable colors in tog(1) (cautiously!)
 and see how it goes:
