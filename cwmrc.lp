@@ -28,11 +28,12 @@ set a decently-sized border around every window
 
 	borderwidth 2
 
-I don't understand how cwm is meant to be used by deafult since I'm used
-to window managers with "tags" (or "workspaces").  Fortunately I can
-enable "sticky" mode on cwm to simulate workspaces
+I've started to use cwm without "sticky" tags.  Enabling the sticky mode
+makes cwm behave like other windows managers with "tags" (or
+"workspaces".)  Without sticky tags, you can decide with more granularly
+which window to show and which not.
 
-	sticky yes
+	# sticky yes
 
 I also prefer to "snap" windows close to the edges
 
@@ -157,15 +158,15 @@ I'm using a custom keyboard layout based on the dvorak-programmer.
 Thus, the upper row is not numbers, but symbols!
 
 	# & { [ ( = + ) ] }
-	bind-key 4-ampersand            group-only-1
-	bind-key 4-braceleft            group-only-2
-	bind-key 4-bracketleft          group-only-3
-	bind-key 4-parenleft            group-only-4
-	bind-key 4-equal                group-only-5
-	bind-key 4-plus                 group-only-6
-	bind-key 4-parenright           group-only-7
-	bind-key 4-bracketright         group-only-8
-	bind-key 4-braceright           group-only-9
+	bind-key 4-ampersand            group-toggle-1
+	bind-key 4-braceleft            group-toggle-2
+	bind-key 4-bracketleft          group-toggle-3
+	bind-key 4-parenleft            group-toggle-4
+	bind-key 4-equal                group-toggle-5
+	bind-key 4-plus                 group-toggle-6
+	bind-key 4-parenright           group-toggle-7
+	bind-key 4-bracketright         group-toggle-8
+	bind-key 4-braceright           group-toggle-9
 
 move with shift
 
@@ -179,18 +180,6 @@ move with shift
 	bind-key S4-bracketright        window-movetogroup-8
 	bind-key S4-braceright          window-movetogroup-9
 	bind-key S4-exclam              window-movetogroup-0
-
-use ctrl to toggle visibility
-
-	bind-key C4-ampersand            group-toggle-1
-	bind-key C4-braceleft            group-toggle-2
-	bind-key C4-bracketleft          group-toggle-3
-	bind-key C4-parenleft            group-toggle-4
-	bind-key C4-equal                group-toggle-5
-	bind-key C4-plus                 group-toggle-6
-	bind-key C4-parenright           group-toggle-7
-	bind-key C4-bracketright         group-toggle-8
-	bind-key C4-braceright           group-toggle-9
 
 mouse bindings
 
