@@ -180,7 +180,7 @@ This one is pretty sophisticated, I've stolen it from jca@
 
 And even more aliases:
 
-	alias mopnew="mdirs ~/Maildir/op | grep -v emacs | mlist -st | mthread -r | mseq -S; mscan"
+	alias mopnew="mdirs ~/Maildir/op | grep -v rss | mlist -st | mthread -r | mseq -S; mscan"
 
 	for c in com rep fwd bnc; do
 		local _mvisual='mg -f auto-fill-mode'
