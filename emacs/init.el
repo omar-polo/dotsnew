@@ -285,7 +285,7 @@ Taken from endless parentheses."
 
 ;; packages that i want to be installed
 (dolist (pkg '(vc-got pdf-tools eglot nameless sly cider go-mode web-mode
-                      lua-mode markdown-mode yaml-mode gemini-mode elfeed
+                      lua-mode markdown-mode yaml-mode gemini-mode
                       form-feed shackle embark consult mct puni))
   (unless (package-installed-p pkg)
     (message "Installing %s" pkg)
@@ -489,90 +489,22 @@ buffer."
   (package-install-file "~/w/saturn/GUI/saturn.el"))
 
 
-;; simple-pass
-(unless (package-installed-p 'simple-pass)
-  (package-install-file "~/.emacs.d/simple-pass.el"))
-(define-key global-map (kbd "C-z p") #'simple-pass-copy)
+;; emacs-pq
+(add-to-list 'load-path "~/build/emacs-libpq/")
+(unless (package-installed-p 'pq)
+  (package-install-file "~/build/emacs-libpq/pq.el"))
 
 
+;; plass
+(unless (package-installed-p 'plass)
+  (ignore-errors
+    (package-install-file "~/w/plass/plass.el")))
 
-;; elfeed
+(with-eval-after-load 'plass
+  (setq plass-filter "!2fa"
+        plass-totp-filter "2fa"))
 
-(define-key global-map (kbd "C-x w") #'elfeed)
-(with-eval-after-load 'elfeed
-  (define-key elfeed-show-mode-map (kbd "q") #'delete-window)
-  (define-key elfeed-show-mode-map (kbd "S-SPC") #'scroll-down-command)
-  (define-key elfeed-show-mode-map (kbd "M-SPC") #'scroll-down-command)
-  (setq elfeed-show-entry-switch #'pop-to-buffer
-        elfeed-feeds
-        '("https://undeadly.org/cgi?action=rss&full=yes&items=10"
-          "http://www.tedunangst.com/flak/rss"
-          "https://www.dragonflydigest.com/feed"
-          "https://www.mirbsd.org/news.rss"
-          "https://www.mirbsd.org/announce.rss"
-          "https://bentsukun.ch/index.xml"
-          "https://drewdevault.com/feed.xml"
-          "https://www.cambus.net/atom.xml"
-          "https://dataswamp.org/~solene/rss.xml"
-          "https://briancallahan.net/blog/feed.xml"
-          "https://www.poolp.org/index.xml"
-          "https://jcs.org/rss"
-          "https://sanctum.geek.nz/arabesque/feed/"
-          "https://tech.toryanderson.com/"
-          "https://alexschroeder.ch/wiki?action=journal;search=-tag:rpg -tag:rsp;lang=en;title=English Diary without RPG Pages"
-          "http://boston.conman.org/bostondiaries.rss"
-          "https://emacsninja.com/feed.atom"
-          "https://bsdly.blogspot.com/feeds/posts/default"
-          "https://crawshaw.io/atom.xml"
-          "https://nullprogram.com/feed/"
-          "http://pragmaticemacs.com/feed/"
-          "https://emacsnotes.wordpress.com/feed/"
-          "https://metaredux.com/feed.xml"
-          "https://emacsredux.com/atom.xml"
-          "https://endlessparentheses.com/atom.xml"
-          "https://www.masteringemacs.org/feed"
-          "https://cestlaz.github.io/rss.xml"
-          "https://utcc.utoronto.ca/~cks/space/blog/?atom"
-          "https://irreal.org/blog/?feed=rss2"
-          "https://jao.io/blog/rss.xml"
-          "https://planet.lisp.org/rss20.xml"
-          "https://insideclojure.org/feed.xml"
-          "https://tech.toryanderson.com/index.xml"
-          "https://vermaden.wordpress.com/feed/"
-          "https://www.arp242.net/feed.xml"
-          "https://tymoon.eu/api/reader/atom"
-          "https://venam.nixers.net/blog/feed.xml"
-          "https://www.omarpolo.com/rss.xml"
-          "https://owarisubs.lacumpa.biz/feed/"
-          "https://asenshi.moe/feed/"
-          "https://godotengine.org/rss.xml"
-          "https://gemini.it.abiscuola.com/gemlog/rss"
-
-          "https://adventofcomputing.libsyn.com/rss"
-
-          "https://github.com/go-gitea/gitea/releases.atom"
-
-          "https://nitter.pussthecat.org/NanoRaptor/rss"
-
-          "https://github.com/yshui/picom/releases.atom"
-          "https://github.com/vslavik/poedit/releases.atom"
-          "https://github.com/TokTok/c-toxcore/releases.atom"
-          "https://github.com/alexander-akhmetov/python-telegram/releases.atom"
-          "https://github.com/paul-nameless/tg/releases.atom"
-          "https://github.com/YACReader/yacreader/releases.atom"
-          "https://github.com/luarocks/luarocks/releases.atom"
-          "https://github.com/okbob/pspg/releases.atom"
-          "https://github.com/taisei-project/taisei/releases.atom"
-          "https://github.com/recp/cglm/releases.atom"
-          "https://github.com/SCons/scons/releases.atom"
-          "https://git.sr.ht/~rjarry/aerc/refs/rss.xml"
-
-          "https://causal.agency/list/pounce.atom"
-
-          "https://www.crimsonmagic.me/feed/"
-          "https://fullybookedtls.wordpress.com/feed/"
-
-          "https://draculadaily.substack.com/feed")))
+
 
 (setq shackle-default-rule nil
       shackle-rules
