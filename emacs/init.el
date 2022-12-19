@@ -392,7 +392,8 @@ Taken from endless parentheses."
   (defun op/c-indent ()
     (interactive)
     (c-set-offset 'arglist-intro '+)
-    (c-set-offset 'arglist-cont-nonempty '*))
+    (c-set-offset 'arglist-cont-nonempty '*)
+    (c-set-offset 'label 1))
   (add-hook 'c-mode-hook #'op/c-indent)
   ;; TODO: improve it!
   (defun op/c-add-include (path &optional localp)
