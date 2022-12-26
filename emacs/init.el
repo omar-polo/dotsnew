@@ -69,7 +69,7 @@
               scroll-preserve-screen-position t
               next-screen-context-lines 1)
 
-(define-key global-map (kbd "M-z") #'zap-up-to-char)
+(define-key global-map (kbd "M-Z") #'zap-up-to-char)
 
 (require 'whitespace)
 (setq whitespace-style '(face trailing)
