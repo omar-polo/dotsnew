@@ -28,12 +28,6 @@ Tell npm to install things globally in the right directory
 
 	export npm_config_prefix=~/.node_modules
 
-Just in case I want to play with lua again:
-
-	if which luarocks-5.3 >/dev/null 2>&1; then
-		eval "$(luarocks-5.3 path --bin)"
-	fi
-
 ksh doesn't have a "default" configuration file (like ~/.zshrc or
 ~/.bashrc); instead, if called interactively, it loads the file pointed
 by ENV.  Tell ksh to load ~/.kshrc then
