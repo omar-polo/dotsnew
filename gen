@@ -75,6 +75,8 @@ pair bin/mquote		bin/mquote.lp	+x
 pair bin/sshot		bin/sshot.lp	+x
 pair bin/template	bin/template.lp	+x
 
+copy bin/news		bin/news
+
 pair .config/herbstluftwm/autostart	config/herbstluftwm/autostart.lp
 pair .config/herbstluftwm/panel		config/herbstluftwm/panel.lp	+x
 pair .config/herbstluftwm/process.awk	config/herbstluftwm/process.awk.lp

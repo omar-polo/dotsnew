@@ -1,0 +1,64 @@
+--- /usr/local/bin/mless	Tue Oct 25 14:26:22 2022
++++ news	Fri Nov 25 16:18:08 2022
+@@ -1,23 +1,13 @@
+ #!/bin/sh
+-# mless [MSG] - less(1)-wrapper around mshow
++# news - less(1) around mshow for my rss feeds
+ 
+-colorscan() {
+-awk '
+-function co(n, c) { e = ENVIRON["MCOLOR_" n]; return e ? e : c }
+-function fg(c, s) { return sprintf("\033[38;5;%03dm%s\033[0m", c, s) }
+-function so(s) { return sprintf("\033[1m%s\033[0m", s) }
+-/^>/ { print so(fg(co("CUR",119), $0)); next }
+-/^ *\\_/ { print fg(co("MISS",242), $0); next }
+-{ print }'
+-}
++# use a custom mblaze env
++mkdir -p ~/.mblaze/news
++export MBLAZE=~/.mblaze/news
+ 
+-if [ -n "${NO_COLOR+set}" ]; then
+-	colorscan() { cat -; }
+-fi
+-
+ if [ "$1" = --filter ]; then
+ 	if [ "$2" = //scan ]; then
+-		mscan : 2>/dev/null | colorscan
++		mscan : 2>/dev/null
+ 		exit $?
+ 	fi
+ 
+@@ -31,7 +21,7 @@
+ 		$((total - 1))) mscan .-4:.+1 ;;
+ 		$total)         mscan .-5:.+0 ;;
+ 		*)              mscan .-2:.+3 ;;
+-	esac 2>/dev/null | colorscan
++	esac 2>/dev/null
+ 	echo
+ 
+ 	if ! [ -f "$(mseq -r "$2")" ]; then
+@@ -85,6 +75,10 @@
+ elif [ -f "$HOME/.mless" ]; then
+ 	export LESSKEY="$HOME/.mless"
+ fi
++
++MAILFEEDS_DIR="${MAILFEEDS_DIR:-$HOME/Maildir/op/rss}"
++mlist -st "$MAILFEEDS_DIR" | mthread -r | mseq -S
++
+ while :; do
+ 	LESSOPEN="|$0 --filter %s" \
+ 		less -Ps"mless %f?m (message %i of %m).." -R \
+@@ -96,6 +90,12 @@
+ 		;;
+ 	78) # N go to next unseen message
+ 		nu=$(magrep -v -m1 :S .:) && mseq -C "$nu"
++		;;
++	79) # O open the news
++		url="$(mhdr -h X-Rssgo-Email)"
++		if [ $? -eq 0 -a -n "$url" ]; then
++			xdg-open "$url"
++		fi
+ 		;;
+ 	107) # k next thread
+ 		mseq -C "$(mseq .+1: | sed -n '/^[^ <]/{p;q;}')"

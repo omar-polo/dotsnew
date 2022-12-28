@@ -1,0 +1,119 @@
+#!/bin/sh
+# news - less(1) around mshow for my rss feeds
+
+# use a custom mblaze env
+mkdir -p ~/.mblaze/news
+export MBLAZE=~/.mblaze/news
+
+if [ "$1" = --filter ]; then
+	if [ "$2" = //scan ]; then
+		mscan : 2>/dev/null
+		exit $?
+	fi
+
+	mseq -C "$2"
+
+	total=$(mscan -n -- -1)
+	case $2 in
+		1)              mscan .-0:.+5 ;;
+		2)              mscan .-1:.+4 ;;
+		$((total - 2))) mscan .-3:.+2 ;;
+		$((total - 1))) mscan .-4:.+1 ;;
+		$total)         mscan .-5:.+0 ;;
+		*)              mscan .-2:.+3 ;;
+	esac 2>/dev/null
+	echo
+
+	if ! [ -f "$(mseq -r "$2")" ]; then
+		mseq "$2"
+		exit
+	fi
+
+	if [ $MLESS_RAW -eq 0 ]; then
+		if [ $MLESS_HTML -eq 1 ]; then
+			mshow -A text/html "$2"
+		else
+			mshow "$2"
+		fi | mcolor
+	else
+		mseq -r "$2"
+		echo
+		cat "$(mseq -r "$2")"
+	fi
+	exit $?
+fi
+
+if [ "$#" -eq 0 ] && ! [ -t 0 ]; then
+	mseq -S >/dev/null
+	set -- :
+fi
+
+if ! [ -t 1 ]; then
+	exec mseq :
+fi
+
+[ "$#" -eq 1 ] && set -- ${1:-.}
+
+if [ "$#" -ge 1 ]; then
+	mseq -C "$1"
+fi
+
+nl="
+"
+export MLESS_RAW=0
+export MLESS_HTML=0
+if [ -f "$MBLAZE/mlesskey" ]; then
+	export LESSKEYIN="$MBLAZE/mlesskey"
+elif [ -f "$HOME/.mblaze/mlesskey" ]; then
+	export LESSKEYIN="$HOME/.mblaze/mlesskey"
+elif [ -f "$HOME/.mlesskey" ]; then
+	export LESSKEYIN="$HOME/.mlesskey"
+elif [ -f "$MBLAZE/mless" ]; then
+	export LESSKEY="$MBLAZE/mless"
+elif [ -f "$HOME/.mblaze/mless" ]; then
+	export LESSKEY="$HOME/.mblaze/mless"
+elif [ -f "$HOME/.mless" ]; then
+	export LESSKEY="$HOME/.mless"
+fi
+
+MAILFEEDS_DIR="${MAILFEEDS_DIR:-$HOME/Maildir/op/rss}"
+mlist -st "$MAILFEEDS_DIR" | mthread -r | mseq -S
+
+while :; do
+	LESSOPEN="|$0 --filter %s" \
+		less -Ps"mless %f?m (message %i of %m).." -R \
+			"+:e $(mscan -n .)$nl" //scan $(mscan -n :)
+	case "$?" in
+	0|1) exit $?;;
+	36) # $ goto end
+		mseq -C '$' 2>/dev/null
+		;;
+	78) # N go to next unseen message
+		nu=$(magrep -v -m1 :S .:) && mseq -C "$nu"
+		;;
+	79) # O open the news
+		url="$(mhdr -h X-Rssgo-Email)"
+		if [ $? -eq 0 -a -n "$url" ]; then
+			xdg-open "$url"
+		fi
+		;;
+	107) # k next thread
+		mseq -C "$(mseq .+1: | sed -n '/^[^ <]/{p;q;}')"
+		;;
+	100) # d mark read
+		mflag -S .
+		mseq -f : | mseq -S
+		mseq -C +
+		;;
+	82) # R toggle raw mode
+		MLESS_RAW=$((1-$MLESS_RAW))
+		;;
+	72) # H read with w3m
+		#MLESS_HTML=$((1-$MLESS_HTML))
+		mshow -Nh '' | w3m -T text/html -
+		;;
+	94) # ^ goto parent
+		mseq -C '.^' 2>/dev/null
+		;;
+	esac
+done
