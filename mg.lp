@@ -31,6 +31,14 @@ handier.
 compile is handy to have and while here bind "M-g M-g" to goto-line,
 just as in Emacs.
 
+	global-set-key "\eZ" zap-up-to-char
+
+Handier than zap-to-char (M-z) most of the times.
+
+	auto-execute * electric-pair-mode
+
+Something I'm working on...
+
 	auto-execute *.[ch] c-mode
 	auto-execute *.[ch] auto-fill-mode
 
