@@ -4,13 +4,115 @@ Show diff statistics.
 
 	#!/usr/bin/awk -f
 
-maybe not 100% correct, but it's one case where being simple yet
-slightly wrong is way easier than correct.  It's not a catastrophe to
-count some extra lines, while parsing the diff (possibly enclosed in a
-mail) is hard.
+AWK is great.  All hail AWK!
 
-	/^\+/ { a++ }
-	/^\-/ { m++ }
+Now, some utility functions.  parsehdr parse extracts the number of
+lines (old or new) in the following hunk.
+
+	function parsehdr(s) {
+		s = gensub(".*,", "", 1, s)
+		s = gensub("^-", "", 1, s)
+		return s + 0
+	}
+
+Switches the current file to the one provided.  It's a great place where
+accumulate part of the summary showed at the end and to reset the
+per-file counters.
+
+	function switchfile(newfile) {
+		if (file != "") {
+			summary = sprintf("%s+%d -%d\t%s\n",
+			    summary, add, rem, file)
+		}
+
+		add = 0
+		rem = 0
+		file = newfile
+	}
+
+Now, the real "parser".  It start in the "out" state
+
+	BEGIN {
+		state = "out"
+	}
+
+Match the start of a diff on the "+++" line.
+
+	state == "out" && /^\+\+\+ / {
+		nfile = gensub("\\\+\\\+\\\+ ", "", 1)
+		if (nfile == "/dev/null") {
+
+When deleting a file, the name will be "/dev/null", but that's not a
+great name for the stats.  Let's use the "old" name instead.
+
+			nfile = delfile
+		}
+
+		switchfile(nfile)
+		delfile = ""
+	}
+
+Let's save the old name in case it's needed.
+
+	state == "out" && /^--- / && file == "" {
+		delfile = gensub("--- ", "", 1)
+	}
+
+Match the start of a hunk and switch the state to "in"
+
+	state == "out" && /^@@ / {
+
+This part is a bit complicated, but all it does is extracting the number
+of "new" and "old" lines showed in the hunk.  A hunk header looks like this
+(except for the initial '#' character)
+
+		# @@ -55,7 +55,19 @@ ...
+
+So first extract the text inside the pair of "@@"
+
+		s = gensub("@@ ", "", 1)
+		s = gensub(" @@.*", "", 1, s)
+
+and then parse each number.
+
+		old = gensub(" .*", "", 1, s)
+		old = parsehdr(old)
+
+		new = gensub(".* ", "", 1, s)
+		new = parsehdr(new)
+
+Don't forget to switch the state of the parser, now we're reading a
+hunk.
+
+		state = "in"
+	}
+
+Keep count of the added and removed line.  Also, decrement the "old" and
+"new" lines when needed, to know when we're done with the hunk.
+
+	state == "in" && /^ / {
+		old--
+		new--
+	}
+
+	state == "in" && /^-/ {
+		old--
+		rem++
+		totrem++
+	}
+
+	state == "in" && /^\+/ {
+		new--
+		add++
+		totadd++
+	}
+
+When there are no more "new" and "old" lines to read, go back to the
+"out" state, ready to read another hunk or another file.
+
+	state == "in" && old <= 0 && new <= 0 {
+		state = "out"
+	}
 
 Don't be a sink!  Continue the pipeline so we can further save or apply
 the diff.
@@ -22,8 +124,11 @@ input.  Unfortunately, there doesn't seem to be a "built-in" way of
 printing to stderr other than using the pseudo-device.
 
 	END {
-		print "+", a > "/dev/stderr"
-		print "-", m  > "/dev/stderr"
+		fflush()
+		switchfile("")
+
+		printf("%s", summary) > "/dev/stderr"
+		printf("+%d -%d\ttotal\n", totadd, totrem) > "/dev/stderr"
 	}
 
 some example usages:
