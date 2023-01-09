@@ -6,8 +6,8 @@ Show diff statistics.
 
 AWK is great.  All hail AWK!
 
-Now, some utility functions.  parsehdr parse extracts the number of
-lines (old or new) in the following hunk.
+First, some utility functions.  parsehdr extracts the number of lines
+(old or new) in the given hunk header line.
 
 	function parsehdr(s) {
 		s = gensub(".*,", "", 1, s)
@@ -15,7 +15,8 @@ lines (old or new) in the following hunk.
 		return s + 0
 	}
 
-Extracts the name of the file from a "+++ path" or "--- path" line.
+filename extracts the name of the file from a "+++ path" or "--- path"
+line.
 
 	function filename(s) {
 		s = gensub("^... ", "", 1, s)
@@ -42,20 +43,21 @@ per-file counters.
 		file = newfile
 	}
 
-Now, the real "parser".  It start in the "out" state
+Now, the real "parser".  Initialize the state to "out" since we're
+looking for the start of a diff.
 
 	BEGIN {
 		state = "out"
 	}
 
-Match the start of a diff on the "+++" line.
+Parse the changed file.
 
 	state == "out" && /^\+\+\+ / {
 		nfile = filename($0)
 		if (nfile == "/dev/null") {
 
-When deleting a file, the name will be "/dev/null", but that's not a
-great name for the stats.  Let's use the "old" name instead.
+When deleting a file, the name will be "/dev/null", but it's not a great
+name for the stats.  Let's use the "old" name instead.
 
 			nfile = delfile
 		}
@@ -64,13 +66,13 @@ great name for the stats.  Let's use the "old" name instead.
 		delfile = ""
 	}
 
-Let's save the old name in case it's needed.
+Similarly, extract the "old" file name for when it's needed.
 
 	state == "out" && /^--- / && file == "" {
 		delfile = filename($0)
 	}
 
-Match the start of a hunk and switch the state to "in"
+Match the start of a hunk
 
 	state == "out" && /^@@ / {
 
@@ -131,19 +133,30 @@ the diff.
 
 	// { print $0 }
 
-At the end, print the stats to standard error to avoid mangling the
-input.  Unfortunately, there doesn't seem to be a "built-in" way of
-printing to stderr other than using the pseudo-device.
+At the end, print the stats.
 
 	END {
+
+It's better to flush the output here, otherwise the stats (printed to
+stderr and unbuffered) may be interleaved with the output (on stdout,
+buffered.)
+
 		fflush()
+
+Generate the stat summary for the last processed file
+
 		switchfile("")
+
+Print the stat to the standard error, to avoid "changing" the patch.
+
+Unfortunately, there doesn't seem to be a "built-in" way of printing to
+stderr other than using the pseudo-device "/dev/stderr".
 
 		printf("%s", summary) > "/dev/stderr"
 		printf("%4d+ %4d-\ttotal\n", totadd, totrem) > "/dev/stderr"
 	}
 
-some example usages:
+Some example usages:
 
 * cvs -q diff | diffstat > /tmp/diff
 * got diff | diffstat | ssh foo 'cd xyz && got patch'
