@@ -145,6 +145,5 @@ printing to stderr other than using the pseudo-device.
 
 some example usages:
 
-* cvs -q di | diffstat | tee /tmp/diff | less
-* git diff | diffstat > /tmp/diff
-* got di | diffstat | ssh foo 'cd xyz && got patch'
+* cvs -q diff | diffstat > /tmp/diff
+* got diff | diffstat | ssh foo 'cd xyz && got patch'
