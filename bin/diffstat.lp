@@ -15,6 +15,18 @@ lines (old or new) in the following hunk.
 		return s + 0
 	}
 
+Extracts the name of the file from a "+++ path" or "--- path" line.
+
+	function filename(s) {
+		s = gensub("^... ", "", 1, s)
+
+These lines have an optional tab followed by extra informations (the
+date for example) that needs to be removed too.
+
+		s = gensub("\t.*", "", 1, s)
+		return s
+	}
+
 Switches the current file to the one provided.  It's a great place where
 accumulate part of the summary showed at the end and to reset the
 per-file counters.
@@ -39,7 +51,7 @@ Now, the real "parser".  It start in the "out" state
 Match the start of a diff on the "+++" line.
 
 	state == "out" && /^\+\+\+ / {
-		nfile = gensub("\\\+\\\+\\\+ ", "", 1)
+		nfile = filename($0)
 		if (nfile == "/dev/null") {
 
 When deleting a file, the name will be "/dev/null", but that's not a
@@ -55,7 +67,7 @@ great name for the stats.  Let's use the "old" name instead.
 Let's save the old name in case it's needed.
 
 	state == "out" && /^--- / && file == "" {
-		delfile = gensub("--- ", "", 1)
+		delfile = filename($0)
 	}
 
 Match the start of a hunk and switch the state to "in"
