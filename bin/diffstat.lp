@@ -33,7 +33,7 @@ per-file counters.
 
 	function switchfile(newfile) {
 		if (file != "") {
-			summary = sprintf("%s+%d -%d\t%s\n",
+			summary = sprintf("%s%4d+ %4d-\t%s\n",
 			    summary, add, rem, file)
 		}
 
@@ -140,7 +140,7 @@ printing to stderr other than using the pseudo-device.
 		switchfile("")
 
 		printf("%s", summary) > "/dev/stderr"
-		printf("+%d -%d\ttotal\n", totadd, totrem) > "/dev/stderr"
+		printf("%4d+ %4d-\ttotal\n", totadd, totrem) > "/dev/stderr"
 	}
 
 some example usages:
