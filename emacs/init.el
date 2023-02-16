@@ -53,6 +53,25 @@
 ;; mg-like
 (define-key minibuffer-mode-map (kbd "C-w") #'backward-kill-word)
 
+;; niceties for the standard completion
+(setq completion-auto-help 'always
+      completion-auto-select 'second-tab
+      completions-max-height 10
+      completions-format 'horizontal
+      completions-header-format ""
+      completion-show-help nil)
+
+(define-key minibuffer-local-map (kbd "C-p") #'minibuffer-previous-completion)
+(define-key minibuffer-local-map (kbd "C-n") #'minibuffer-next-completion)
+
+(define-key completion-in-region-mode-map (kbd "C-p")
+            #'minibuffer-previous-completion)
+(define-key completion-in-region-mode-map (kbd "C-n")
+            #'minibuffer-next-completion)
+
+(define-key completion-in-region-mode-map (kbd "M-RET")
+            #'minibuffer-choose-completion)
+
 (defun op/reverse-other-window ()
   "Like `other-window', but reverse."
   (interactive "")
@@ -284,9 +303,9 @@ Taken from endless parentheses."
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 ;; packages that i want to be installed
-(dolist (pkg '(vc-got pdf-tools eglot nameless sly cider go-mode web-mode
-                      lua-mode markdown-mode yaml-mode gemini-mode
-                      form-feed shackle embark consult mct puni))
+(dolist (pkg '(vc-got eglot sly cider go-mode web-mode lua-mode
+                      markdown-mode yaml-mode gemini-mode
+                      form-feed shackle puni orderless))
   (unless (package-installed-p pkg)
     (message "Installing %s" pkg)
     (package-install pkg)))
@@ -298,47 +317,11 @@ Taken from endless parentheses."
 (define-key puni-mode-map (kbd "C-)") #'puni-slurp-forward)
 (define-key puni-mode-map (kbd "C-(") #'puni-barf-forward)
 
-(setq completion-styles '(basic substring initials flex partial-completion))
-
-(require 'consult) ;; some stuff lacks an autoload and i don't want to debug it
-
-(cl-loop for (key . func) in '(("C-x :" . consult-complex-command)
-                               ("C-x b" . consult-buffer)
-                               ("C-x 4 b" . consult-buffer-other-window)
-                               ("C-x 5 b" . consult-buffer-other-frame)
-                               ("C-x r b" . consult-bookmark)
-                               ("C-x p b" . consult-project-buffer)
-                               ("M-y" . consult-yank-pop)
-                               ("M-g g" . consult-goto-line)
-                               ("M-g M-g" . consult-goto-line)
-                               ("M-g m" . consult-mark)
-                               ("M-g i" . consult-imenu)
-                               ("M-s l" . consult-line)
-                               ("M-s L" . consult-line-multi)
-                               ("M-s m" . consult-multi-occur))
-         do (define-key global-map (kbd key) func))
-(add-hook 'completion-list-mode-hook #'consult-preview-at-point-mode)
+;;(setq completion-styles '(basic substring initials flex partial-completion))
+(setq completion-styles '(orderless basic)
+      completion-category-overrides '((file (styles basic partial-completion))))
 
 (setq completions-detailed t)
-(mct-minibuffer-mode +1)
-(mct-region-mode +1)
-
-;; override the binding for the annoying mct-backward-updir.
-(define-key mct-minibuffer-local-filename-completion-map
-            (kbd "DEL") #'backward-delete-char)
-
-(setq mct-remove-shadowed-file-names t
-      mct-completions-format 'one-column
-      mct-completion-passlist '(Info-goto-node
-                                Info-index
-                                Info-menu
-                                vc-retrieve-tag
-                                imenu
-                                file
-                                buffer
-                                consult-project-buffer
-                                kill-ring
-                                consult-buffer))
 
 (with-eval-after-load 'cider
   (define-key cider-repl-mode-map (kbd "C-c M-o") #'cider-repl-clear-buffer))
@@ -543,34 +526,3 @@ buffer."
 (shackle-mode +1)
 
 ;; (setq display-buffer-alist nil)
-
-(define-key global-map (kbd "M-g e") #'embark-act)
-
-(with-eval-after-load 'embark
-  (defun op/target-filename+line ()
-    "Target a file with optional line number: file[:number]."
-    (save-excursion
-      (let* ((beg (progn (skip-chars-backward "^[:space:]\n")
-                         (point)))
-             (end (progn (skip-chars-forward "^[:space:]\n")
-                         (point)))
-             (str (buffer-substring-no-properties beg end)))
-        (save-match-data
-          (when (and (progn (goto-char beg)
-                            (ffap-file-at-point))
-                     (string-match ".+\\(:[[:digit:]]+\\)?:?" str))
-            `(file ,str ,beg . ,end))))))
-
-  (add-to-list 'embark-target-finders #'op/target-filename+line)
-
-  (defun op/acme-find-file (filename)
-    "Visit FILENAME like `find-file', but also jump to line if provided."
-    (save-match-data
-      (if (not (string-match "\\(.+\\):\\([[:digit:]]+\\)" filename))
-          (find-file filename)
-        (let ((path (match-string 1 filename))
-              (line (string-to-number (match-string 2 filename))))
-          (with-current-buffer (find-file path)
-            (goto-line line))))))
-
-  (define-key embark-file-map (kbd "RET") #'op/acme-find-file))
