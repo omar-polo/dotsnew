@@ -101,9 +101,7 @@ Scroll_Lock is not too awkward to press
 
 manage the notifications
 
-	bind-key 4-space "dunstctl close"
-	bind-key 4S-space "dunstctl history-pop"
-	bind-key 4-n "dunstctl context"
+	bind-key 4-space "pkill -SIGUSR1 xnotify"
 
 basics window movements
 
