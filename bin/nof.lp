@@ -10,7 +10,7 @@ I store all the notes here, but die quickly should that directory not
 exists.
 
 	grep '^# ' * | \
-		sed -e 's/:/ | /1' | \
+		sed -e 's/:# / | /1' | \
 		fzf --tac --multi --layout=reverse \
 			--preview "echo {} | sed 's/ .*//g' | xargs cat" | \
 		while read l; do
