@@ -16,10 +16,10 @@ It's also a great place to tweak the `load-path'!
 	             (expand-file-name "lisp" user-emacs-directory))
 
 Another thing I do here is to load the theme.  I've developed my own
-theme (minimal-light, a fork of the original), but I'm playing with
-modus now
+theme (minimal-light, a fork of the original), but it's temporarly
+disabled until I find a way to make it look decently on the tty.
 
-	(load-theme 'minimal t)
+	;; (load-theme 'minimal t)
 
 and just a reminder for myself, these are some wip settings for modus
 vivendi in case I want to play with it again in the future:
