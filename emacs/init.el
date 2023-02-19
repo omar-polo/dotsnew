@@ -336,12 +336,6 @@ Taken from endless parentheses."
   (add-to-list 'eglot-server-programs
                '(c-mode . ("clangd" "--header-insertion=never"))))
 
-(add-hook 'emacs-lisp-mode #'nameless-mode)
-(with-eval-after-load 'nameless
-  (setq nameless-private-prefix t
-        nameless-affect-indentation-and-filling nil)
-  (define-key emacs-lisp-mode-map (kbd "_") #'nameless-insert-name-or-self-insert))
-
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (with-eval-after-load 'web-mode
   (setq web-mode-markup-indent-offset 2
