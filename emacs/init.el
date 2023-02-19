@@ -134,7 +134,10 @@
 (define-key global-map (kbd "M-l")   #'downcase-dwim)
 (define-key global-map (kbd "M-c")   #'capitalize-dwim)
 
-(let ((font "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1"))
+(let ((font
+       ;; "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1"
+       "JuliaMono 8"
+       ))
   (set-frame-font font nil t)
   (add-to-list 'default-frame-alist `(font . ,font)))
 
