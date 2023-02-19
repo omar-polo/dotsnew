@@ -208,16 +208,16 @@
 
 (defmacro op/deftranspose (name scope key doc)
   "Macro to produce transposition functions.
-      NAME is the function's symbol.  SCOPE is the text object to
-      operate on.  Optional DOC is the function's docstring.
+NAME is the function's symbol.  SCOPE is the text object to
+operate on.  Optional DOC is the function's docstring.
 
-      Transposition over an active region will swap the object at
-      mark (region beginning) with the one at point (region end).
+Transposition over an active region will swap the object at
+mark (region beginning) with the one at point (region end).
 
-      It can optionally define a key for the defined function in the
-      `global-map' if KEY is passed.
+It can optionally define a key for the defined function in the
+`global-map' if KEY is passed.
 
-      Originally from protesilaos' dotemacs."
+Originally from protesilaos' dotemacs."
   (declare (indent defun))
   `(progn
      (defun ,name (arg)
