@@ -51,19 +51,11 @@ docker-cli to transparently talk to the VM:
 
 	export DOCKER_HOST=ssh://op@100.64.2.3:22
 
-I like to use mg as my default editor but under vterm is a bit of a pain
-because emacs keeps eating up all the various C-c and C-x keys.  Thus,
-switch back to vi when INSIDE_EMACS (which sounds strange, I know)
+I had this revelation.  I don't MoGrify text.  I don't VIsualize files.
+I EDit them!
 
-	if [ -z "$INSIDE_EMACS" ]; then
-		VISUAL=mg
-		EDITOR=mg
-	else
-		VISUAL=vi
-		EDITOR=vi
-	fi
-
-	export VISUAL EDITOR
+	EDITOR=ed
+	export EDITOR
 
 less(1) should be the default pager pretty most everywhere, but ensure
 that!
