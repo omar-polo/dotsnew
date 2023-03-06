@@ -128,7 +128,7 @@ with ports (that's why doas!)
 			printf "%s\n" "USAGE: mgdiff file" >&2
 			return
 		fi
-		doas cp -p "$1" "$1.orig"
+		doas cp -p "$1" "$1.orig.port"
 		doas mg "$1"
 	}
 
