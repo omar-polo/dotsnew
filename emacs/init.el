@@ -328,6 +328,9 @@ Taken from endless parentheses."
 (with-eval-after-load 'go-mode
   (add-hook 'go-mode-hook #'subword-mode))
 
+(with-eval-after-load 'tcl
+  (setq-default tcl-indent-level 8))
+
 (with-eval-after-load 'eglot
   (define-key eglot-mode-map (kbd "<f1>") #'eglot-code-actions)
   (define-key eglot-mode-map (kbd "<f2>") #'eglot-format)
