@@ -69,7 +69,7 @@
 (define-key completion-in-region-mode-map (kbd "C-n")
             #'minibuffer-next-completion)
 
-(define-key completion-in-region-mode-map (kbd "M-RET")
+(define-key completion-in-region-mode-map (kbd "RET")
             #'minibuffer-choose-completion)
 
 (defun op/reverse-other-window ()
