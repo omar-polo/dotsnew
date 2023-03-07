@@ -478,7 +478,7 @@ buffer."
 ;; plass
 (unless (package-installed-p 'plass)
   (ignore-errors
-    (package-install-file "~/w/plass/plass.el")))
+    (package-install-file "~/w/plass/extra/plass.el")))
 
 (with-eval-after-load 'plass
   (setq plass-filter "!2fa"
