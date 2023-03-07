@@ -27,10 +27,6 @@
       calc-make-windows-dedicated t
       user-mail-address "op@omarpolo.com")
 
-(setq completion-ignore-case t
-      read-file-name-completion-ignore-case t
-      read-buffer-completion-ignore-case t)
-
 ;; I don't like how compile uses `make -k' by default, I want to stop
 ;; on errors / warnings.
 (setq compile-command "make")
@@ -54,7 +50,10 @@
 (define-key minibuffer-mode-map (kbd "C-w") #'backward-kill-word)
 
 ;; niceties for the standard completion
-(setq completion-auto-help 'always
+(setq completion-ignore-case t
+      read-file-name-completion-ignore-case t
+      read-buffer-completion-ignore-case t
+      completion-auto-help 'always
       completion-auto-select 'second-tab
       completions-max-height 10
       completions-format 'horizontal
