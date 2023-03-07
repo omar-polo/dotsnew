@@ -50,7 +50,8 @@
 (define-key minibuffer-mode-map (kbd "C-w") #'backward-kill-word)
 
 ;; niceties for the standard completion
-(setq completion-ignore-case t
+(setq tab-always-indent 'complete
+      completion-ignore-case t
       read-file-name-completion-ignore-case t
       read-buffer-completion-ignore-case t
       completion-auto-help 'always
@@ -92,7 +93,6 @@
 (require 'whitespace)
 (setq whitespace-style '(face trailing)
       backward-delete-char-untabify-method  'hungry
-      tab-always-indent 'complete
       tab-width 8
       sentence-end-double-space t)
 (setq-default indent-tabs-mode t)
