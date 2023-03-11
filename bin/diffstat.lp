@@ -68,7 +68,7 @@ name for the stats.  Let's use the "old" name instead.
 
 Similarly, extract the "old" file name for when it's needed.
 
-	state == "out" && /^--- / && file == "" {
+	state == "out" && /^--- / {
 		delfile = filename($0)
 	}
 
