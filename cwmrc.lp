@@ -72,12 +72,6 @@ everything and re-bind most of the keys on the mod4 (super) key
 	bind-key 4-Tab group-last
 	bind-mouse C-3 menu-exec-wm
 	bind-key C4-slash menu-window
-	
-eat up multimedia keys so they don't get seen by some programs (like
-emacs or sam)
-
-	bind-key XF86AudioLowerVolume true
-	bind-key XF86AudioRaiseVolume true
 
 control the playback
 
