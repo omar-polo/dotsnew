@@ -31,23 +31,29 @@ handier.
 compile is handy to have and while here bind "M-g M-g" to goto-line,
 just as in Emacs.
 
+	global-set-key "\e," pop-tag-mark
+
+Emacs has M-, to pop the tag mark, less differences to remember.
+
 	global-set-key "\eZ" zap-up-to-char
 
 Handier than zap-to-char (M-z) most of the times.
 
-	auto-execute * electric-pair-mode
-
-Something I'm working on...
-
 	auto-execute *.[ch] c-mode
 	auto-execute *.[ch] auto-fill-mode
 
-	auto-execute README* auto-fill-mode
+	auto-execute README auto-fill-mode
 	auto-execute *.txt auto-fill-mode
 	auto-execute *.md auto-fill-mode
 	auto-execute *.[1-9] auto-fill-mode
 
-	auto-execute * auto-indent-mode
+	#auto-execute *.lua set-tab-width 3	# not yet...
+	auto-execute *.lua no-tab-mode
 
 `auto-execute' is similar to add-hook.  Set some default stuff for files
 matching those patterns.
+
+	set-default-mode indent
+	set-default-mode ep	# my extension
+
+Default modes to apply everywhere
