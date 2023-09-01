@@ -156,7 +156,7 @@ just pipe it to clbin and it returns an url.
 Some aliases I use when working with the OpenBSD port tree:
 
 	alias m="make"
-	alias mup="make update-patches"
+	alias mup="VISUAL=mg make update-patches"
 	alias mupl="make update-plist"
 	alias mpldc="make port-lib-depends-check"
 	alias pbuild="env MAKE_JOBS=5 time make"
