@@ -72,6 +72,7 @@ pair bin/diffstat	bin/diffstat.lp	+x
 pair bin/gamemode	bin/gamemode.lp	+x
 pair bin/gmi2txt	bin/gmi2txt.lp	+x
 pair bin/mquote		bin/mquote.lp	+x
+pair bin/myterm		bin/myterm.lp	+x
 pair bin/nof		bin/nof.lp	+x
 pair bin/sshot		bin/sshot.lp	+x
 pair bin/template	bin/template.lp	+x

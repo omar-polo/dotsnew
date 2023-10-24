@@ -16,7 +16,7 @@ First I have a list of applications for the built-in menu:
 	command iridium		iridium
 	command keepassxc	keepassxc
 	command lock		xlock
-	command term		xterm
+	command term		myterm
 
 I found these color by random I guess, but they're fine
 
@@ -127,7 +127,7 @@ basics window movements
 
 	bind-key 4-slash menu
 
-	bind-key CM-Return xterm # kitty
+	bind-key CM-Return myterm
 	bind-key C4-Return "emacsclient -c"
 	bind-key CS4-Return "env SHELL=rc 9term"
 
