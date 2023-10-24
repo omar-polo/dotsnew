@@ -17,7 +17,6 @@ First I have a list of applications for the built-in menu:
 	command keepassxc	keepassxc
 	command lock		xlock
 	command term		xterm
-	command xterm.jp	xterm.jp
 
 I found these color by random I guess, but they're fine
 
