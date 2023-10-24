@@ -15,4 +15,4 @@ I'm actually using the same list of the sam example configuration:
 ksh has not a great syntax for arrays, but this will choose (with modulo
 bias!) a random colour and use it as xterm background.
 
-	exec xterm -bg "$(echo ${colours[$((RANDOM % ${#colours[@]}))]})"
+	exec xterm -bg "$(echo ${colours[$((RANDOM % ${#colours[@]}))]})" "$@"
