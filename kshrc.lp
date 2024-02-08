@@ -194,9 +194,6 @@ And even more aliases:
 
 	for c in com rep fwd bnc; do
 		local _mvisual='mg -f auto-fill-mode'
-		if [ -n "$DISPLAY" ]; then
-			_mvisual='emacsclient -c'
-		fi
 
 		alias m$c="VISUAL='$_mvisual' m$c"
 		alias o$c="m$c -from 'Omar Polo <op@openbsd.org>'"
