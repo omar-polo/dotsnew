@@ -10,7 +10,9 @@ list of colours as `background' and sam will use a random one.
 I'm actually using the same list of the sam example configuration:
 
 	set -A colours white seashell oldlace lightcyan \
-		lightyellow mintcream snow
+		lightyellow mintcream snow thistle1 wheat \
+		azure lavenderblush bisque antiquewhite \
+		aliceblue lemonchiffon oldlace
 
 ksh has not a great syntax for arrays, but this will choose (with modulo
 bias!) a random colour and use it as xterm background.
