@@ -24,12 +24,16 @@ disabled until I find a way to make it look decently on the tty.
 and just a reminder for myself, these are some wip settings for modus
 vivendi in case I want to play with it again in the future:
 
-
 	;; (setq modus-themes-mode-line '(accented borderless))
 	;; (setq modus-themes-region '(accented bg-only))
 	;; (setq modus-themes-completions '((matches . (underline light))
 	;;                                  (selection . (underline light))
 	;;                                  (popup . (accented))))
+
+On some machines, I don't want highlighting at all
+
+	(if (string= (system-name) "suzaku.omarpolo.com")
+	  (global-font-lock-mode -1))
 
 Also, $CDPATH works strange in eshell so disable it:
 
