@@ -297,3 +297,20 @@ implementation is completely different.
 			find "$dir" $type -iname "$name" -exec "$@" {} +
 		fi
 	}
+
+Sometimes it's useful to have a local postgresql database for testing.  I've stolen this trick from
+=> https://jamey.thesharps.us/2019/05/29/per-project-postgres/	Jamey Thesharps "Per-project postgres" blog post
+
+	localpg() {
+		export PGDATA="$(pwd)/postgres"
+		export PGHOST="$PGDATA"
+		
+		if [ ! -d "$PGDATA" ]; then
+			initdb
+			cat >> "$PGDATA/postgresql.conf" <<-EOF
+				listen_addresses = ''
+				unix_socket_directories = '$PGHOST'
+			EOF
+			echo "CREATE DATABASE $USER;" | postgres --single -E postgres
+		fi
+	}
