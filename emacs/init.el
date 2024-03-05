@@ -114,6 +114,7 @@
 (add-hook 'text-mode-hook #'whitespace-mode)
 
 (dolist (hook '(emacs-lisp-mode-hook
+                js-mode-hook
 		clojure-mode-hook
 		clojurescript-mode-hook
 		clojurec-mode-hook
@@ -135,7 +136,7 @@
 
 (let ((font
        ;; "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1"
-       "JuliaMono 8"
+       "Spleen"
        ))
   (set-frame-font font nil t)
   (add-to-list 'default-frame-alist `(font . ,font)))
@@ -146,7 +147,7 @@
 
 ;; some cool stuff
 (save-place-mode +1)
-(savehist-mode +1)
+;(savehist-mode +1)
 (setq history-delete-duplicates t
       history-length 1000
       savehist-save-minibuffer-history t)
@@ -303,12 +304,14 @@ Taken from endless parentheses."
 ;; packages that i want to be installed
 (dolist (pkg '(vc-got eglot sly cider go-mode web-mode lua-mode
                       markdown-mode yaml-mode gemini-mode
-                      form-feed shackle puni orderless))
+                      form-feed shackle puni orderless
+                      rotate vc-fossil flimenu howm))
   (unless (package-installed-p pkg)
     (message "Installing %s" pkg)
     (package-install pkg)))
 
 (global-form-feed-mode +1)
+(flimenu-global-mode +1)
 
 (add-hook 'text-mode-hook #'puni-mode)
 (add-hook 'prog-mode-hook #'puni-mode)
@@ -489,7 +492,7 @@ buffer."
       shackle-rules
       (let ((repls "\\*\\(cider-repl\\|sly-mrepl\\|ielm\\)")
             (godot "\\*godot - .*\\*")
-            (vcs   "\\*\\(Flymake\\|Package-Lint\\|vc-\\(git\\|got\\) :\\).*")
+            (vcs   "\\*\\(Flymake\\|Package-Lint\\|vc-\\(git\\|got\\|fossil\\) :\\).*")
             (elfeed "\\*elfeed-entry\\*")
             (vmd    "\\*vmd console .*"))
         `(("*Async Shell Command*" :ignore t)
@@ -521,3 +524,20 @@ buffer."
 (shackle-mode +1)
 
 ;; (setq display-buffer-alist nil)
+
+
+;; rotate
+(define-key global-map (kbd "C-c R") #'rotate-window)
+(define-key global-map (kbd "C-c r") #'rotate-layout)
+
+
+;; howm
+(require 'howm)
+
+(define-key howm-menu-mode-map "\C-h" nil)
+(define-key riffle-summary-mode-map "\C-h" nil)
+(define-key howm-view-contents-mode-map "\C-h" nil)
+
+;; rename buffers to their title
+(add-hook 'howm-mode-hook 'howm-mode-set-buffer-name)
+(add-hook 'after-save-hook 'howm-mode-set-buffer-name)
