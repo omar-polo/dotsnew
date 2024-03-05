@@ -5,15 +5,15 @@ I don't know how "portable" a .profile can be, but let's try!
 Althought I'm not using acme as my go-to text editor program, I still
 like to use it and have the rest of the plan9ports at hand.
 
-I manually fetched and installed the ports in /usr/local/plan9, and need
-to define $PLAN9 in order for the various tooling to work.
+I manually fetched and installed the ports in ~/plan9, and need to
+define $PLAN9 in order for the various tooling to work.
 
-	PLAN9=/usr/local/plan9
+	PLAN9=$HOME/plan9
 	export PLAN9
 
 I tend to have an abnormal $PATH
 
-	PATH=$HOME/bin:$HOME/opt/emacs/bin:$HOME/opt/gcc10/bin:$HOME/go/bin:$HOME/opt/unnethack/bin:$HOME/.local/bin:$HOME/.node_modules/bin:/home/ports/infrastructure/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/usr/local/bin:/usr/local/sbin:/usr/games:/usr/local/jdk-11/bin:$PLAN9/bin
+	PATH=$HOME/bin:$HOME/opt/emacs/bin:$HOME/opt/gcc10/bin:$HOME/go/bin:$HOME/opt/unnethack/bin:$HOME/.local/bin:$HOME/.node_modules/bin:/home/ports/infrastructure/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/usr/local/bin:/usr/local/sbin:/usr/games:/usr/local/jdk-17/bin:$PLAN9/bin
 
 Let's split it:
 
